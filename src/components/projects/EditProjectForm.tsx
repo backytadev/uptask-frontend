@@ -1,45 +1,61 @@
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { ProjectFormData } from '@/types';
-import { createProject } from '@/api/ProjectAPI';
+import { Project, ProjectFormData } from '@/types';
+import { updateProjectById } from '@/api/ProjectAPI';
 import ProjectForm from '@/components/projects/ProjectForm';
 
-export default function CreateProjectView() {
-  const navigate = useNavigate();
+type EditProjectFormProps = {
+  data: ProjectFormData;
+  projectId: Project['_id'];
+};
 
-  const initialValues: ProjectFormData = {
-    projectName: '',
-    clientName: '',
-    description: '',
-  };
+export default function EditProjectForm({ data, projectId }: EditProjectFormProps) {
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ defaultValues: initialValues });
+  } = useForm({
+    defaultValues: {
+      projectName: data.projectName,
+      clientName: data.clientName,
+      description: data.description,
+    },
+  });
 
   const { mutate } = useMutation({
-    mutationFn: createProject,
+    mutationFn: updateProjectById,
     onError: (error) => {
       toast.error(error.message);
     },
     onSuccess: (data) => {
       toast.success(data);
+      queryClient.invalidateQueries({ queryKey: ['projects'] });
+      queryClient.invalidateQueries({ queryKey: ['editProject', projectId] });
       navigate('/');
     },
   });
 
-  const handleForm = (formData: ProjectFormData) => mutate(formData);
+  const handleForm = (formData: ProjectFormData) => {
+    const data = {
+      projectId,
+      formData,
+    };
+
+    mutate(data);
+  };
+
   return (
     <>
       <div className='max-w-3xl mx-auto'>
-        <h1 className='text-5xl font-black'>Crear Proyecto</h1>
+        <h1 className='text-5xl font-black'>Editar Proyecto</h1>
         <p className='text-2xl font-light text-gray-500'>
-          Llena el siguiente formulario para crear un proyecto.
+          Llena el siguiente formulario para editar el proyecto.
         </p>
 
         <nav className='my-5'>
@@ -60,7 +76,7 @@ export default function CreateProjectView() {
 
           <input
             type='submit'
-            value='Crear Proyecto'
+            value='Guardar Cambios'
             className='bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-3 text-white uppercase font-bold cursor-pointer transition-colors'
           />
         </form>
