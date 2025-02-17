@@ -1,13 +1,13 @@
 import { Fragment } from 'react';
+import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Dialog, Transition, DialogPanel, DialogTitle, TransitionChild } from '@headlessui/react';
 
 import { TaskFormData } from '@/types';
 import { createTask } from '@/api/TaskAPI';
 import TaskForm from '@/components/tasks/TaskForm';
-import { toast } from 'react-toastify';
 
 export default function AddTaskModal() {
   const navigate = useNavigate();
@@ -31,12 +31,15 @@ export default function AddTaskModal() {
     formState: { errors },
   } = useForm({ defaultValues: initialValues });
 
+  const queryCliente = useQueryClient();
+
   const { mutate } = useMutation({
     mutationFn: createTask,
     onError: (error) => {
       toast.error(error.message);
     },
     onSuccess: (data) => {
+      queryCliente.invalidateQueries({ queryKey: ['project', projectId] });
       toast.success(data);
       navigate(location.pathname, { replace: true });
       reset();
