@@ -1,6 +1,7 @@
-import Logo from '@/components/Logo';
 import { Outlet } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+
+import Logo from '@/components/Logo';
 
 export default function AuthLayout() {
   return (

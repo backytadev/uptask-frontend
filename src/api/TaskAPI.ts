@@ -1,5 +1,6 @@
-import api from '@/lib/axios';
 import { isAxiosError } from 'axios';
+
+import api from '@/lib/axios';
 import { Project, Task, TaskFormData, taskSchema } from '@/types';
 
 interface TaskAPI {

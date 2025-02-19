@@ -8,7 +8,8 @@ import { TaskStatus } from '@/types';
 import { formatDate } from '@/utils/utils';
 import { StatusTranslations } from '@/locales/es';
 import { getTaskById, updateStatus } from '@/api/TaskAPI';
-import NotesPanel from '../notes/NotesPanel';
+
+import NotesPanel from '@/components/notes/NotesPanel';
 
 export default function TaskModalDetails() {
   const navigate = useNavigate();
@@ -100,7 +101,9 @@ export default function TaskModalDetails() {
 
                     {data.completedBy.length ? (
                       <>
-                        <p className='text-2xl text-slate-500 mb-2'>Historial de Cambios</p>
+                        <p className='font-bold text-2xl text-slate-600 my-5'>
+                          Historial de Cambios
+                        </p>
 
                         <ul className='pl-4 list-decimal'>
                           {data.completedBy.map((activityLog) => (
@@ -130,7 +133,7 @@ export default function TaskModalDetails() {
                       </select>
                     </div>
 
-                    <NotesPanel />
+                    <NotesPanel notes={data.notes} />
                   </DialogPanel>
                 </TransitionChild>
               </div>

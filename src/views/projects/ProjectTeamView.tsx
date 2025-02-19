@@ -1,12 +1,13 @@
 import { toast } from 'react-toastify';
 import { Fragment } from 'react/jsx-runtime';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react';
+
+import { getProjectTeam, removeUserFromProject } from '@/api/TeamAPI';
 
 import AddMemberModal from '@/components/team/AddMemberModal';
-import { getProjectTeam, removeUserFromProject } from '@/api/TeamAPI';
-import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react';
-import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
 
 export default function ProjectTeamView() {
   const navigate = useNavigate();

@@ -1,10 +1,11 @@
-import { Link, Outlet, Navigate } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+import { Link, Outlet, Navigate } from 'react-router-dom';
+
+import { useAuth } from '@/hooks/useAuth';
 
 import Logo from '@/components/Logo';
 import NavMenu from '@/components/NavMenu';
-import { useAuth } from '@/hooks/useAtuh';
 
 export default function AppLayout() {
   const { data, isError, isLoading } = useAuth();

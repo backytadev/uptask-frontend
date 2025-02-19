@@ -1,14 +1,16 @@
-import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
+import { useMemo } from 'react';
 
-import { getProjectById } from '@/api/ProjectAPI';
+import { useQuery } from '@tanstack/react-query';
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
+
+import { useAuth } from '@/hooks/useAuth';
+import { isManager } from '@/utils/policies';
+import { getFullProject } from '@/api/ProjectAPI';
+
 import TaskList from '@/components/tasks/TaskList';
 import AddTaskModal from '@/components/tasks/AddTaskModal';
 import EditTaskData from '@/components/tasks/EditTaskData';
 import TaskModalDetails from '@/components/tasks/TaskModalDetails';
-import { useAuth } from '@/hooks/useAtuh';
-import { isManager } from '@/utils/policies';
-import { useMemo } from 'react';
 
 export default function ProjectDetailsView() {
   const { data: user, isLoading: authLoading } = useAuth();
@@ -19,7 +21,7 @@ export default function ProjectDetailsView() {
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ['project', projectId],
-    queryFn: () => getProjectById(projectId),
+    queryFn: () => getFullProject(projectId),
     retry: false,
   });
 

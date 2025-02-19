@@ -4,15 +4,20 @@ import AppLayout from '@/layouts/AppLayout';
 import AuthLayout from '@/layouts/AuthLayout';
 import LoginView from '@/views/auth/LoginView';
 import DashboardView from '@/views/DashboardView';
+import ProfileLayout from '@/layouts/ProfileLayout';
 import RegisterView from '@/views/auth/RegisterView';
-import EditProjectView from '@/views/projects/EditProjectView';
-import ConfirmAccountView from '@/views/auth/ConfirmAccountView';
-import CreateProjectView from '@/views/projects/CreateProjectView';
-import ProjectDetailsView from '@/views/projects/ProjectDetailsView';
-import RequestNewCodeView from '@/views/auth/RequestNewCodeView';
-import ForgotPasswordView from '@/views/auth/ForgotPasswordView';
+import ProfileView from '@/views/profile/ProfileView';
 import NewPasswordView from '@/views/auth/NewPasswordView';
 import ProjectTeamView from '@/views/projects/ProjectTeamView';
+import EditProjectView from '@/views/projects/EditProjectView';
+import ForgotPasswordView from '@/views/auth/ForgotPasswordView';
+import ConfirmAccountView from '@/views/auth/ConfirmAccountView';
+import RequestNewCodeView from '@/views/auth/RequestNewCodeView';
+import CreateProjectView from '@/views/projects/CreateProjectView';
+import ChangePasswordView from '@/views/profile/ChangePasswordView';
+import ProjectDetailsView from '@/views/projects/ProjectDetailsView';
+
+import NotFound from '@/views/404/NotFound';
 
 export default function Router() {
   return (
@@ -25,6 +30,11 @@ export default function Router() {
           <Route path='/projects/:projectId' element={<ProjectDetailsView />} />
           <Route path='/projects/:projectId/edit' element={<EditProjectView />} />
           <Route path='/projects/:projectId/team' element={<ProjectTeamView />} />
+          //* Profile
+          <Route element={<ProfileLayout />}>
+            <Route path='/profile' element={<ProfileView />} />
+            <Route path='/profile/password' element={<ChangePasswordView />} />
+          </Route>
         </Route>
         //* Auth
         <Route element={<AuthLayout />}>
@@ -34,6 +44,9 @@ export default function Router() {
           <Route path='/auth/request-code' element={<RequestNewCodeView />} />
           <Route path='/auth/forgot-password' element={<ForgotPasswordView />} />
           <Route path='/auth/new-password' element={<NewPasswordView />} />
+        </Route>
+        <Route element={<AuthLayout />}>
+          <Route path='/404' element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>

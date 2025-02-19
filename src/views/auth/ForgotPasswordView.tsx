@@ -5,6 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import { ForgotPasswordForm } from '@/types';
 import { forgotPassword } from '@/api/AuthAPI';
+
 import ErrorMessage from '@/components/ErrorMessage';
 
 export default function ForgotPasswordView() {
