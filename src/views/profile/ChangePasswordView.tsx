@@ -39,26 +39,26 @@ export default function ChangePasswordView() {
 
   return (
     <>
-      <div className='mx-auto max-w-3xl'>
-        <h1 className='text-5xl font-black '>Cambiar Password</h1>
-        <p className='text-2xl font-light text-gray-500 mt-5'>
+      <div className='mx-auto max-w-lg px-4 sm:px-0'>
+        <h1 className='text-4xl font-black text-center sm:text-5xl'>Cambiar Password</h1>
+        <p className='text-lg sm:text-xl font-light text-gray-500 mt-4 text-center'>
           Utiliza este formulario para cambiar tu password
         </p>
 
         <form
           onSubmit={handleSubmit(handleChangePassword)}
-          className=' mt-14 space-y-5 bg-white shadow-lg p-10 rounded-lg'
+          className='mt-10 space-y-6 bg-white shadow-md p-6 sm:p-10 rounded-xl'
           noValidate
         >
-          <div className='mb-5 space-y-3'>
-            <label className='text-sm uppercase font-bold' htmlFor='current_password'>
+          <div className='space-y-2'>
+            <label className='text-sm font-bold uppercase' htmlFor='current_password'>
               Password Actual
             </label>
             <input
               id='current_password'
               type='password'
               placeholder='Password Actual'
-              className='w-full p-3  border border-gray-200'
+              className='w-full mt-1 p-2 md:p-3 border border-gray-300 rounded-lg focus:border-fuchsia-600 focus:ring-1 focus:ring-fuchsia-600 focus:outline-none transition-all'
               {...register('current_password', {
                 required: 'El password actual es obligatorio',
               })}
@@ -68,15 +68,15 @@ export default function ChangePasswordView() {
             )}
           </div>
 
-          <div className='mb-5 space-y-3'>
-            <label className='text-sm uppercase font-bold' htmlFor='password'>
+          <div className='space-y-2'>
+            <label className='text-sm font-bold uppercase' htmlFor='password'>
               Nuevo Password
             </label>
             <input
               id='password'
               type='password'
               placeholder='Nuevo Password'
-              className='w-full p-3  border border-gray-200'
+              className='w-full mt-1 p-2 md:p-3  border border-gray-300 rounded-lg focus:border-fuchsia-600 focus:ring-1 focus:ring-fuchsia-600 focus:outline-none transition-all'
               {...register('password', {
                 required: 'El Nuevo Password es obligatorio',
                 minLength: {
@@ -87,16 +87,16 @@ export default function ChangePasswordView() {
             />
             {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
           </div>
-          <div className='mb-5 space-y-3'>
-            <label htmlFor='password_confirmation' className='text-sm uppercase font-bold'>
+
+          <div className='space-y-2'>
+            <label className='text-sm font-bold uppercase' htmlFor='password_confirmation'>
               Repetir Password
             </label>
-
             <input
               id='password_confirmation'
               type='password'
               placeholder='Repetir Password'
-              className='w-full p-3  border border-gray-200'
+              className='w-full mt-1 p-2 md:p-3 border border-gray-300 rounded-lg focus:border-fuchsia-600 focus:ring-1 focus:ring-fuchsia-600 focus:outline-none transition-all'
               {...register('password_confirmation', {
                 required: 'Este campo es obligatorio',
                 validate: (value) => value === password || 'Los Passwords no son iguales',
@@ -110,7 +110,7 @@ export default function ChangePasswordView() {
           <input
             type='submit'
             value='Cambiar Password'
-            className='bg-fuchsia-600 w-full p-3 text-white uppercase font-bold hover:bg-fuchsia-700 cursor-pointer transition-colors'
+            className='bg-fuchsia-600 w-full py-4 text-white uppercase font-bold  rounded-lg hover:bg-fuchsia-700 focus:ring-4 focus:ring-fuchsia-400 transition-all cursor-pointer'
           />
         </form>
       </div>

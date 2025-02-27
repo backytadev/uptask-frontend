@@ -11,53 +11,59 @@ type ProjectFormProps = {
 export default function ProjectForm({ register, errors }: ProjectFormProps) {
   return (
     <>
-      <div className='mb-5 space-y-3'>
-        <label htmlFor='projectName' className='text-sm uppercase font-bold'>
+      <div className='mb-5 space-y-2'>
+        <label
+          htmlFor='projectName'
+          className='text-sm md:text-base font-medium uppercase text-gray-700'
+        >
           Nombre del Proyecto
         </label>
         <input
           id='projectName'
-          className='w-full p-3  border border-gray-200'
+          className='w-full mt-1 p-2 md:p-3 border text-sm md:text-base border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-fuchsia-500'
           type='text'
-          placeholder='Nombre del Proyecto'
+          placeholder='Escribe el nombre del proyecto'
           {...register('projectName', {
-            required: 'El Titulo del Proyecto es obligatorio',
+            required: 'El título del proyecto es obligatorio',
           })}
         />
-
         {errors.projectName && <ErrorMessage>{errors.projectName.message}</ErrorMessage>}
       </div>
 
-      <div className='mb-5 space-y-3'>
-        <label htmlFor='clientName' className='text-sm uppercase font-bold'>
-          Nombre Cliente
+      <div className='mb-5 space-y-2'>
+        <label
+          htmlFor='clientName'
+          className='text-sm md:text-base font-medium uppercase text-gray-700'
+        >
+          Nombre del Cliente
         </label>
         <input
           id='clientName'
-          className='w-full p-3  border border-gray-200'
+          className='w-full mt-1 p-2 md:p-3 border text-sm md:text-base border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-fuchsia-500'
           type='text'
           placeholder='Nombre del Cliente'
           {...register('clientName', {
-            required: 'El Nombre del Cliente es obligatorio',
+            required: 'El nombre del cliente es obligatorio',
           })}
         />
-
         {errors.clientName && <ErrorMessage>{errors.clientName.message}</ErrorMessage>}
       </div>
 
-      <div className='mb-5 space-y-3'>
-        <label htmlFor='description' className='text-sm uppercase font-bold'>
+      <div className='mb-5 space-y-2'>
+        <label
+          htmlFor='description'
+          className='text-sm md:text-base font-medium uppercase text-gray-700'
+        >
           Descripción
         </label>
         <textarea
           id='description'
-          className='w-full p-3  border border-gray-200'
-          placeholder='Descripción del Proyecto'
+          className='w-full mt-1 p-2 md:p-3 border text-sm md:text-base border-gray-300 rounded-lg resize-none h-32 focus:outline-none focus:ring-2 focus:ring-fuchsia-500'
+          placeholder='Escribe una breve descripción del proyecto'
           {...register('description', {
             required: 'Una descripción del proyecto es obligatoria',
           })}
         />
-
         {errors.description && <ErrorMessage>{errors.description.message}</ErrorMessage>}
       </div>
     </>

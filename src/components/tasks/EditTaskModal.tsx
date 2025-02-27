@@ -66,43 +66,41 @@ export default function EditTaskModal({ data, taskId }: EditTaskModalProps) {
           <div className='fixed inset-0 bg-black/60' />
         </TransitionChild>
 
-        <div className='fixed inset-0 overflow-y-auto'>
-          <div className='flex min-h-full items-center justify-center p-4 text-center'>
-            <TransitionChild
-              as={Fragment}
-              enter='ease-out duration-300'
-              enterFrom='opacity-0 scale-95'
-              enterTo='opacity-100 scale-100'
-              leave='ease-in duration-200'
-              leaveFrom='opacity-100 scale-100'
-              leaveTo='opacity-0 scale-95'
-            >
-              <DialogPanel className='w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-16'>
-                <DialogTitle as='h3' className='font-black text-4xl  my-5'>
-                  Editar Tarea
-                </DialogTitle>
+        <div className='fixed inset-0 overflow-y-auto flex items-center justify-center p-4 sm:p-6'>
+          <TransitionChild
+            as={Fragment}
+            enter='ease-out duration-300'
+            enterFrom='opacity-0 scale-95'
+            enterTo='opacity-100 scale-100'
+            leave='ease-in duration-200'
+            leaveFrom='opacity-100 scale-100'
+            leaveTo='opacity-0 scale-95'
+          >
+            <DialogPanel className='w-full max-w-lg sm:max-w-2xl md:max-w-3xl lg:max-w-4xl transform overflow-hidden rounded-lg bg-white text-left align-middle shadow-xl transition-all p-6 sm:p-10 md:p-14 lg:p-16'>
+              <DialogTitle as='h3' className='font-black text-[1.8rem] md:text-4xl my-3 sm:my-5'>
+                Editar Tarea
+              </DialogTitle>
 
-                <p className='text-xl font-bold'>
-                  Realiza cambios a una tarea en {''}
-                  <span className='text-fuchsia-600'>este formulario</span>
-                </p>
+              <p className='text-base sm:text-lg md:text-xl font-bold'>
+                Realiza cambios a una tarea en{' '}
+                <span className='text-fuchsia-600'>este formulario</span>
+              </p>
 
-                <form
-                  className='mt-10 space-y-3'
-                  noValidate
-                  onSubmit={handleSubmit(handleEditTask)}
-                >
-                  <TaskForm register={register} errors={errors} />
+              <form
+                className='mt-6 sm:mt-8 space-y-4 sm:space-y-6'
+                noValidate
+                onSubmit={handleSubmit(handleEditTask)}
+              >
+                <TaskForm register={register} errors={errors} />
 
-                  <input
-                    type='submit'
-                    className=' bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-3  text-white font-black  text-xl cursor-pointer'
-                    value='Guardar Tarea'
-                  />
-                </form>
-              </DialogPanel>
-            </TransitionChild>
-          </div>
+                <input
+                  type='submit'
+                  className='bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-3 text-white font-black text-lg sm:text-xl rounded-md shadow-md cursor-pointer transition-all'
+                  value='Guardar Tarea'
+                />
+              </form>
+            </DialogPanel>
+          </TransitionChild>
         </div>
       </Dialog>
     </Transition>

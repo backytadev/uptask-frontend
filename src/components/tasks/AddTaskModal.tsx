@@ -56,56 +56,54 @@ export default function AddTaskModal() {
         <Dialog
           as='div'
           className='relative z-10'
-          onClose={() => navigate(location.pathname, { replace: true })} // quita el query string de la url
+          onClose={() => navigate(location.pathname, { replace: true })} // Remove the query string
         >
           <TransitionChild
             as={Fragment}
-            enter='ease-out duration-300'
+            enter='ease-out duration-200'
             enterFrom='opacity-0'
             enterTo='opacity-100'
-            leave='ease-in duration-200'
+            leave='ease-in duration-150'
             leaveFrom='opacity-100'
             leaveTo='opacity-0'
           >
-            <div className='fixed inset-0 bg-black/60' />
+            <div className='fixed inset-0 bg-black/50' />
           </TransitionChild>
 
-          <div className='fixed inset-0 overflow-y-auto'>
-            <div className='flex min-h-full items-center justify-center p-4 text-center'>
-              <TransitionChild
-                as={Fragment}
-                enter='ease-out duration-300'
-                enterFrom='opacity-0 scale-95'
-                enterTo='opacity-100 scale-100'
-                leave='ease-in duration-200'
-                leaveFrom='opacity-100 scale-100'
-                leaveTo='opacity-0 scale-95'
-              >
-                <DialogPanel className='w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-16'>
-                  <DialogTitle as='h3' className='font-black text-4xl  my-5'>
-                    Nueva Tarea
-                  </DialogTitle>
+          <div className='fixed inset-0 flex items-center justify-center p-4 sm:p-6'>
+            <TransitionChild
+              as={Fragment}
+              enter='ease-out duration-200'
+              enterFrom='opacity-0 scale-95'
+              enterTo='opacity-100 scale-100'
+              leave='ease-in duration-150'
+              leaveFrom='opacity-100 scale-100'
+              leaveTo='opacity-0 scale-95'
+            >
+              <DialogPanel className='w-full max-w-lg sm:max-w-3xl transform overflow-hidden rounded-lg bg-white shadow-xl transition-all p-6 sm:p-12'>
+                <DialogTitle as='h3' className='text-[1.8rem] md:text-4xl font-black my-3 sm:my-5'>
+                  Nueva Tarea
+                </DialogTitle>
 
-                  <p className='text-xl font-bold'>
-                    Llena el formulario y crea {''}
-                    <span className='text-fuchsia-600'>una tarea</span>
-                  </p>
+                <p className='text-lg sm:text-xl font-medium'>
+                  Llena el formulario y crea <span className='text-fuchsia-600'>una tarea</span>
+                </p>
 
-                  <form
-                    className='mt-10 space-y-10'
-                    onSubmit={handleSubmit(handleCreateTask)}
-                    noValidate
-                  >
-                    <TaskForm register={register} errors={errors} />
-                    <input
-                      type='submit'
-                      value='Guardar Tarea'
-                      className='bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-3 text-white uppercase font-bold cursor-pointer transition-colors'
-                    />
-                  </form>
-                </DialogPanel>
-              </TransitionChild>
-            </div>
+                <form
+                  className='mt-6 sm:mt-10 space-y-6 sm:space-y-10'
+                  onSubmit={handleSubmit(handleCreateTask)}
+                  noValidate
+                >
+                  <TaskForm register={register} errors={errors} />
+
+                  <input
+                    type='submit'
+                    value='Crear Tarea'
+                    className='bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-3 text-white uppercase font-bold rounded-md shadow-md cursor-pointer transition-all'
+                  />
+                </form>
+              </DialogPanel>
+            </TransitionChild>
           </div>
         </Dialog>
       </Transition>

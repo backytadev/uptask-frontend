@@ -10,18 +10,24 @@ import NavMenu from '@/components/NavMenu';
 export default function AppLayout() {
   const { data, isError, isLoading } = useAuth();
 
-  if (isLoading) return 'Cargando...';
+  if (isLoading)
+    return (
+      <div className='flex items-center justify-center min-h-screen '>
+        <div className='animate-spin rounded-full border-4 border-gray-300 border-t-fuchsia-500 h-16 w-16'></div>
+      </div>
+    );
+
   if (isError) {
     return <Navigate to='/auth/login' />;
   }
 
   if (data)
     return (
-      <>
-        <header className='bg-gray-800 py-5'>
-          <div className='max-w-screen-2xl mx-auto flex flex-col lg:flex-row justify-between items-center'>
-            <div className='w-64'>
-              <Link to={'/'}>
+      <div className='flex flex-col min-h-screen text-black'>
+        <header className='bg-slate-900 py-4 shadow-md'>
+          <div className='max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center'>
+            <div className='w-48 sm:w-48 lg:w-64'>
+              <Link to='/'>
                 <Logo />
               </Link>
             </div>
@@ -29,16 +35,27 @@ export default function AppLayout() {
           </div>
         </header>
 
-        <section className='max-w-screen-2xl mx-auto mt-10 p-5'>
+        <section className='flex-1 w-full max-w-screen-2xl mx-auto p-4 sm:p-6 lg:p-8'>
           <Outlet />
         </section>
 
-        <footer className='py-5'>
-          <p className='text-center'>
-            &copy; Todos los derechos reservados {new Date().getFullYear()}
-          </p>
+        <footer className='bg-slate-900 text-gray-300 py-6 text-center text-sm sm:text-base'>
+          <div className='max-w-screen-lg mx-auto px-4 flex flex-col sm:flex-row items-center justify-between'>
+            <p className='mb-2 sm:mb-0'>
+              &copy; {new Date().getFullYear()} Todos los derechos reservados.
+            </p>
+            <div className='flex gap-4'>
+              <Link to='/' className='hover:text-purple-400 transition'>
+                Política de Privacidad
+              </Link>
+              <Link to='/' className='hover:text-purple-400 transition'>
+                Términos y Condiciones
+              </Link>
+            </div>
+          </div>
         </footer>
+
         <ToastContainer pauseOnHover={false} pauseOnFocusLoss={false} />
-      </>
+      </div>
     );
 }

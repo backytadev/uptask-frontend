@@ -3,6 +3,7 @@ import { Fragment } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { EyeIcon, TrashIcon, PencilSquareIcon } from '@heroicons/react/24/outline';
 import { Menu, MenuButton, MenuItems, MenuItem, Transition } from '@headlessui/react';
 
 import { useAuth } from '@/hooks/useAuth';
@@ -22,73 +23,61 @@ export default function DashboardView() {
     queryFn: getProjects,
   });
 
-  if (isLoading && authLoading) return 'Cargando...';
+  if ((isLoading && authLoading) || authLoading || isLoading)
+    return (
+      <div className='flex items-center justify-center min-h-screen -mt-[8rem]'>
+        <div className='animate-spin rounded-full border-4 border-gray-300 border-t-fuchsia-500 h-16 w-16'></div>
+      </div>
+    );
 
   if (data && user)
     return (
       <>
-        <h1 className='text-5xl font-black'>Mis Proyectos</h1>
-        <p className='text-2xl font-light text-gray-500 my-2'>Maneja y administra tus proyectos</p>
+        <div className='text-center lg:text-left'>
+          <h1 className='text-4xl sm:text-5xl font-black'>Mis Proyectos</h1>
+          <p className='text-lg sm:text-2xl font-light text-gray-500 my-2'>
+            Maneja y administra tus proyectos
+          </p>
+        </div>
 
-        <nav className='my-5'>
+        <nav className='my-5 flex justify-center lg:justify-start'>
           <Link
             to='/projects/create'
-            className='bg-purple-400 hover:bg-purple-500 px-10 py-3 text-white text-xl font-bold cursor-pointer transition-colors'
+            className='bg-purple-500 hover:bg-purple-600 px-6 sm:px-10 py-3 text-white text-lg sm:text-xl font-bold rounded-lg transition-colors'
           >
             Nuevo Proyecto
           </Link>
         </nav>
+
         {data.length ? (
-          <ul
-            role='list'
-            className='divide-y divide-gray-100 border border-gray-100 mt-10 bg-white shadow-lg'
-          >
+          <ul className='mt-5 grid gap-5 sm:gap-8 lg:gap-10 lg:grid-cols-2 xl:grid-cols-3'>
             {data.map((project) => (
-              <li key={project._id} className='flex justify-between gap-x-6 px-5 py-10'>
-                <div className='flex min-w-0 gap-x-4'>
-                  <div className='min-w-0 flex-auto space-y-2'>
-                    <div className='mb-2'>
-                      {isManager(project.manager, user._id) ? (
-                        <p className='font-bold text-xs uppercase bg-indigo-50 text-indigo-500 border-2 rounded-lg inline-block py-1 px-5'>
-                          Manager
-                        </p>
-                      ) : (
-                        <p className='font-bold text-xs uppercase bg-green-50 text-green-500 border-2 rounded-lg inline-block py-1 px-5'>
-                          Colaborador
-                        </p>
-                      )}
-                    </div>
-                    <Link
-                      to={`/projects/${project._id}`}
-                      className='text-gray-600 cursor-pointer hover:underline text-3xl font-bold'
-                    >
-                      {project.projectName}
-                    </Link>
-                    <p className='text-sm text-gray-400'>Cliente: {project.clientName}</p>
-                    <p className='text-sm text-gray-400'>{project.description}</p>
-                  </div>
-                </div>
-                <div className='flex shrink-0 items-center gap-x-6'>
-                  <Menu as='div' className='relative flex-none'>
-                    <MenuButton className='-m-2.5 block p-2.5 text-gray-500 hover:text-gray-900'>
-                      <span className='sr-only'>opciones</span>
-                      <EllipsisVerticalIcon className='h-9 w-9' aria-hidden='true' />
+              <li
+                key={project._id}
+                className='bg-white shadow-md hover:shadow-lg transition p-6 rounded-xl border border-gray-200 relative'
+              >
+                <div className='absolute top-3 right-3'>
+                  <Menu as='div' className='relative'>
+                    <MenuButton className='p-2 text-gray-500 hover:text-gray-900 cursor-pointer'>
+                      <EllipsisVerticalIcon className='h-6 w-6' aria-hidden='true' />
                     </MenuButton>
+
                     <Transition
                       as={Fragment}
                       enter='transition ease-out duration-100'
-                      enterFrom='transform opacity-0 scale-95'
-                      enterTo='transform opacity-100 scale-100'
+                      enterFrom='opacity-0 scale-95'
+                      enterTo='opacity-100 scale-100'
                       leave='transition ease-in duration-75'
-                      leaveFrom='transform opacity-100 scale-100'
-                      leaveTo='transform opacity-0 scale-95'
+                      leaveFrom='opacity-100 scale-100'
+                      leaveTo='opacity-0 scale-95'
                     >
-                      <MenuItems className='absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none'>
+                      <MenuItems className='absolute right-0 mt-2 w-48 rounded-lg bg-white shadow-lg ring-1 ring-gray-200 py-2'>
                         <MenuItem>
                           <Link
                             to={`/projects/${project._id}`}
-                            className='block px-3 py-1 text-sm leading-6 text-gray-900'
+                            className='flex items-center text-sm md:text-base gap-2 px-4 py-2 text-gray-800 hover:bg-gray-100'
                           >
+                            <EyeIcon className='w-5 h-5 text-gray-500' />
                             Ver Proyecto
                           </Link>
                         </MenuItem>
@@ -98,8 +87,9 @@ export default function DashboardView() {
                             <MenuItem>
                               <Link
                                 to={`/projects/${project._id}/edit`}
-                                className='block px-3 py-1 text-sm leading-6 text-gray-900'
+                                className='flex items-center text-sm md:text-base gap-2 px-4 py-2 text-gray-800 hover:bg-gray-100'
                               >
+                                <PencilSquareIcon className='w-5 h-5 text-gray-500' />
                                 Editar Proyecto
                               </Link>
                             </MenuItem>
@@ -107,11 +97,12 @@ export default function DashboardView() {
                             <MenuItem>
                               <button
                                 type='button'
-                                className='block px-3 py-1 text-sm leading-6 text-red-500 cursor-pointer'
+                                className='flex items-center text-sm md:text-base gap-2 px-4 py-2 text-red-500 hover:bg-red-100 w-full text-left cursor-pointer'
                                 onClick={() =>
                                   navigate(location.pathname + `?deleteProject=${project._id}`)
                                 }
                               >
+                                <TrashIcon className='w-5 h-5 text-red-500' />
                                 Eliminar Proyecto
                               </button>
                             </MenuItem>
@@ -121,13 +112,37 @@ export default function DashboardView() {
                     </Transition>
                   </Menu>
                 </div>
+
+                <div className='space-y-4 mt-6'>
+                  <div
+                    className={`inline-block px-4 py-1 text-xs font-bold uppercase rounded-lg border-2 tracking-wide ${
+                      isManager(project.manager, user._id)
+                        ? 'bg-purple-100 text-purple-600 border-purple-500'
+                        : 'bg-green-50 text-green-500 border-green-500'
+                    }`}
+                  >
+                    {isManager(project.manager, user._id) ? 'Manager' : 'Colaborador'}
+                  </div>
+
+                  <Link
+                    to={`/projects/${project._id}`}
+                    className='text-gray-700 text-xl sm:text-2xl font-bold block hover:underline'
+                  >
+                    {project.projectName}
+                  </Link>
+
+                  <p className='text-sm md:text-base text-gray-400'>
+                    Cliente: {project.clientName}
+                  </p>
+                  <p className='text-sm md:text-base text-gray-400'>{project.description}</p>
+                </div>
               </li>
             ))}
           </ul>
         ) : (
-          <p className='text-center py-20'>
-            No hay proyectos aún {''}
-            <Link to='/projects/create' className='text-fuchsia-500 font-bold'>
+          <p className='text-center py-20 text-gray-500'>
+            No hay proyectos aún{' '}
+            <Link to='/projects/create' className='text-purple-500 font-bold hover:underline'>
               Crear Proyecto
             </Link>
           </p>

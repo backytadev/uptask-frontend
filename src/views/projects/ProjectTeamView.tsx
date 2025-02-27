@@ -1,9 +1,14 @@
 import { toast } from 'react-toastify';
 import { Fragment } from 'react/jsx-runtime';
-import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react';
+import {
+  TrashIcon,
+  UserPlusIcon,
+  ArrowLeftIcon,
+  EllipsisVerticalIcon,
+} from '@heroicons/react/24/outline';
 
 import { getProjectTeam, removeUserFromProject } from '@/api/TeamAPI';
 
@@ -33,51 +38,61 @@ export default function ProjectTeamView() {
     },
   });
 
-  if (isLoading) return 'Cargando...';
+  if (isLoading)
+    return (
+      <div className='flex items-center justify-center min-h-screen -mt-[10rem]'>
+        <div className='animate-spin rounded-full border-4 border-gray-300 border-t-fuchsia-500 h-16 w-16'></div>
+      </div>
+    );
+
   if (isError) return <Navigate to={'/404'} />;
 
   if (data)
     return (
       <>
-        <h1 className='text-5xl font-black'>Administrar Equipo</h1>
-        <p className='text-2xl font-light text-gray-500 mt-5'>
-          Administra el equipo de trabajo para este proyecto.
+        <h1 className='text-4xl sm:text-5xl font-black'>Administrar Equipo</h1>
+        <p className='text-lg sm:text-2xl font-light text-gray-500 mt-4'>
+          Administra el equipo de trabajo para este proyecto
         </p>
-        <nav className='my-5 flex gap-3'>
+
+        <nav className='my-5 flex flex-wrap gap-3'>
           <button
             type='button'
-            className='bg-purple-500 hover:bg-purple-600 px-10 py-3 text-white text-xl font-bold cursor-pointer transition-colors'
+            className='flex items-center gap-2 bg-purple-500 hover:bg-purple-600 px-6 py-3 text-white text-base sm:text-lg w-full font-bold rounded-lg transition-colors justify-center md:justify-normal md:w-auto'
             onClick={() => navigate(location.pathname + '?addMember=true')}
           >
+            <UserPlusIcon className='h-6 w-6' />
             Agregar Colaborador
           </button>
+
           <Link
             to={`/projects/${projectId}`}
-            className='bg-fuchsia-600 hover:bg-fuchsia-700 px-10 py-3 text-white text-xl font-bold cursor-pointer transition-colors'
+            className='flex items-center gap-2 bg-fuchsia-600 hover:bg-fuchsia-700 px-6 py-3 text-white sm:text-lg w-full font-bold rounded-lg transition-colors justify-center md:justify-normal md:w-auto'
           >
+            <ArrowLeftIcon className='h-6 w-6' />
             Volver a Proyecto
           </Link>
         </nav>
 
-        <h2 className='text-5xl font-black my-10'>Miembros actuales</h2>
+        <h2 className='text-4xl sm:text-5xl font-black my-10'>Miembros actuales</h2>
         {data.length ? (
-          <ul
-            role='list'
-            className='divide-y divide-gray-100 border border-gray-100 mt-10 bg-white shadow-lg'
-          >
+          <ul className='divide-y divide-gray-200 border border-gray-200 mt-5 bg-white shadow-md rounded-lg'>
             {data?.map((member) => (
-              <li key={member._id} className='flex justify-between gap-x-6 px-5 py-10'>
-                <div className='flex min-w-0 gap-x-4'>
-                  <div className='min-w-0 flex-auto space-y-2'>
-                    <p className='text-2xl font-black text-gray-600'>{member.name}</p>
-                    <p className='text-sm text-gray-400'>{member.email}</p>
+              <li
+                key={member._id}
+                className='relative flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 px-5 py-6'
+              >
+                <div className='flex w-full items-center justify-between'>
+                  <div className='flex items-center gap-4'>
+                    <div className='min-w-0 flex-auto'>
+                      <p className='text-lg sm:text-xl font-bold text-gray-700'>{member.name}</p>
+                      <p className='text-sm text-gray-500'>{member.email}</p>
+                    </div>
                   </div>
-                </div>
-                <div className='flex shrink-0 items-center gap-x-6'>
-                  <Menu as='div' className='relative flex-none'>
-                    <MenuButton className='-m-2.5 block p-2.5 text-gray-500 hover:text-gray-900'>
-                      <span className='sr-only'>opciones</span>
-                      <EllipsisVerticalIcon className='h-9 w-9' aria-hidden='true' />
+
+                  <Menu as='div' className='relative'>
+                    <MenuButton className='p-2.5 text-gray-500 hover:text-gray-900 transition-colors focus:ring-2 focus:ring-gray-400 cursor-pointer'>
+                      <EllipsisVerticalIcon className='h-6 w-6' aria-hidden='true' />
                     </MenuButton>
                     <Transition
                       as={Fragment}
@@ -88,13 +103,14 @@ export default function ProjectTeamView() {
                       leaveFrom='transform opacity-100 scale-100'
                       leaveTo='transform opacity-0 scale-95'
                     >
-                      <MenuItems className='absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none'>
+                      <MenuItems className='absolute  -right-4 md:right-0 top-12 md:top-10 z-20 w-[12.5rem] bg-white shadow-lg ring-1 ring-gray-300 rounded-md py-2'>
                         <MenuItem>
                           <button
                             type='button'
-                            className='block px-3 py-1 text-sm leading-6 text-red-500 cursor-pointer'
+                            className='flex items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors w-full cursor-pointer'
                             onClick={() => mutate({ projectId, userId: member._id })}
                           >
+                            <TrashIcon className='h-5 w-5' />
                             Eliminar del Proyecto
                           </button>
                         </MenuItem>
@@ -106,7 +122,7 @@ export default function ProjectTeamView() {
             ))}
           </ul>
         ) : (
-          <p className='text-center py-20'>No hay miembros en este equipo</p>
+          <p className='text-center py-10 text-gray-500 text-lg'>No hay miembros en este equipo</p>
         )}
 
         <AddMemberModal />

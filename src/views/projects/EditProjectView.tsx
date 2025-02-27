@@ -14,7 +14,12 @@ export default function EditProjectView() {
     retry: false,
   });
 
-  if (isLoading) return 'Cargando...';
+  if (isLoading)
+    return (
+      <div className='flex items-center justify-center min-h-screen -mt-[8rem]'>
+        <div className='animate-spin rounded-full border-4 border-gray-300 border-t-fuchsia-500 h-16 w-16'></div>
+      </div>
+    );
 
   if (isError) return <Navigate to='/404' />;
 

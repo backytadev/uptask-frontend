@@ -38,9 +38,11 @@ export default function NewPasswordToken({
 
   return (
     <>
-      <form className='space-y-8 p-10 rounded-lg bg-white mt-10'>
-        <label className='font-normal text-2xl text-center block'>Código de 6 dígitos</label>
-        <div className='flex justify-center gap-5'>
+      <form className='space-y-4 md:space-y-5 p-5 md:p-10 rounded-lg bg-white mt-10'>
+        <label className='font-normal text-xl md:text-2xl text-center block'>
+          Código de 6 dígitos
+        </label>
+        <div className='flex justify-center flex-wrap md:flex-nowrap gap-2 md:gap-5'>
           <PinInput value={token} onChange={handleChange} onComplete={handleComplete}>
             <PinInputField className='h-10 w-10 p-3 rounded-lg border-gray-300 border placeholder-white' />
             <PinInputField className='h-10 w-10 p-3 rounded-lg border-gray-300 border placeholder-white' />
@@ -51,9 +53,13 @@ export default function NewPasswordToken({
           </PinInput>
         </div>
       </form>
-      <nav className='mt-10 flex flex-col space-y-4'>
-        <Link to='/auth/forgot-password' className='text-center text-gray-300 font-normal'>
-          Solicitar un nuevo Código
+
+      <nav className='mt-10 flex flex-col space-y-4 text-sm md:text-base'>
+        <Link
+          to='/auth/forgot-password'
+          className='text-slate-400 font-medium text-center hover:text-fuchsia-500 transition'
+        >
+          Solicitar un nuevo código
         </Link>
       </nav>
     </>

@@ -8,7 +8,7 @@ import { ConfirmToken } from '@/types';
 import { confirmAccount } from '@/api/AuthAPI';
 
 export default function ConfirmAccountView() {
-  const [token, setToken] = useState<ConfirmToken['token']>('123');
+  const [token, setToken] = useState<ConfirmToken['token']>('');
 
   const { mutate } = useMutation({
     mutationFn: confirmAccount,
@@ -35,25 +35,30 @@ export default function ConfirmAccountView() {
         Ingresa el código que recibiste {''}
         <span className=' text-fuchsia-500 font-bold'> por e-mail</span>
       </p>
-      <form className='space-y-8 p-10 bg-white mt-10'>
-        <label className='font-normal text-2xl text-center block'>
+
+      <form className='space-y-4 md:space-y-5 p-5 md:p-10 rounded-lg bg-white mt-10'>
+        <label className='font-normal text-xl md:text-2xl text-center block'>
           Código de 6 dígitos
-          <div className='flex justify-center gap-5'>
-            <PinInput value={token} onChange={handleChange} onComplete={handleComplete}>
-              <PinInputField className='w-10 h-10 p-3 rounded-lg border-gray-300 border placeholder-white' />
-              <PinInputField className='w-10 h-10 p-3 rounded-lg border-gray-300 border placeholder-white' />
-              <PinInputField className='w-10 h-10 p-3 rounded-lg border-gray-300 border placeholder-white' />
-              <PinInputField className='w-10 h-10 p-3 rounded-lg border-gray-300 border placeholder-white' />
-              <PinInputField className='w-10 h-10 p-3 rounded-lg border-gray-300 border placeholder-white' />
-              <PinInputField className='w-10 h-10 p-3 rounded-lg border-gray-300 border placeholder-white' />
-            </PinInput>
-          </div>
         </label>
+
+        <div className='flex justify-center flex-wrap md:flex-nowrap gap-2 md:gap-5'>
+          <PinInput value={token} onChange={handleChange} onComplete={handleComplete}>
+            <PinInputField className='h-10 w-10 p-3 rounded-lg border-gray-300 border placeholder-white' />
+            <PinInputField className='h-10 w-10 p-3 rounded-lg border-gray-300 border placeholder-white' />
+            <PinInputField className='h-10 w-10 p-3 rounded-lg border-gray-300 border placeholder-white' />
+            <PinInputField className='h-10 w-10 p-3 rounded-lg border-gray-300 border placeholder-white' />
+            <PinInputField className='h-10 w-10 p-3 rounded-lg border-gray-300 border placeholder-white' />
+            <PinInputField className='h-10 w-10 p-3 rounded-lg border-gray-300 border placeholder-white' />
+          </PinInput>
+        </div>
       </form>
 
-      <nav className='mt-10 flex flex-col space-y-4'>
-        <Link to='/auth/request-code' className='text-center text-gray-300 font-normal underline'>
-          Solicitar un nuevo Código
+      <nav className='mt-10 flex flex-col space-y-4 text-sm md:text-base'>
+        <Link
+          to='/auth/request-code'
+          className='text-slate-400 font-medium text-center hover:text-fuchsia-500 transition'
+        >
+          Solicitar un nuevo código
         </Link>
       </nav>
     </>

@@ -38,16 +38,16 @@ export default function AddMemberForm() {
 
   return (
     <>
-      <form className='mt-10 space-y-5' onSubmit={handleSubmit(handleSearchUser)} noValidate>
-        <div className='flex flex-col gap-3'>
-          <label className='font-normal text-2xl' htmlFor='name'>
+      <form className='mt-6 space-y-6' onSubmit={handleSubmit(handleSearchUser)} noValidate>
+        <div className='flex flex-col gap-2'>
+          <label className='text-base sm:text-xl font-medium' htmlFor='email'>
             E-mail de Usuario
           </label>
           <input
-            id='name'
-            type='text'
-            placeholder='E-mail del usuario a Agregar'
-            className='w-full p-3  border-gray-300 border'
+            id='email'
+            type='email'
+            placeholder='E-mail del usuario a agregar'
+            className='w-full p-2 md:p-3 text-sm md:text-base border border-gray-300 rounded-lg px-4 py-3 text-lg focus:ring-2 focus:ring-fuchsia-500 focus:outline-none'
             {...register('email', {
               required: 'El Email es obligatorio',
               pattern: {
@@ -56,18 +56,28 @@ export default function AddMemberForm() {
               },
             })}
           />
-          {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
+          {errors.email && (
+            <p className='text-red-600 text-sm'>
+              <ErrorMessage>{errors.email.message}</ErrorMessage>
+            </p>
+          )}
         </div>
 
-        <input
+        <button
           type='submit'
-          className=' bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-3  text-white font-black  text-xl cursor-pointer'
-          value='Buscar Usuario'
-        />
+          className='w-full bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-bold text-lg sm:text-xl py-3 rounded-lg transition-all'
+        >
+          Buscar Usuario
+        </button>
       </form>
-      <div className='mt-10'>
-        {mutation.isPending && <p className='text-center'>Cargando...</p>}
-        {mutation.error && <p className='text-center'>{mutation.error.message}</p>}
+
+      <div className='mt-3'>
+        {mutation.isPending && <p className='text-center text-lg font-semibold'>Cargando...</p>}
+        {mutation.error && (
+          <p className='text-center text-red-600'>
+            <ErrorMessage>{mutation.error.message}</ErrorMessage>
+          </p>
+        )}
         {mutation.data && <SearchResult user={mutation.data} reset={resetData} />}
       </div>
     </>

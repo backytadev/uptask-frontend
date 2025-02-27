@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
+import { PlusIcon, UsersIcon } from '@heroicons/react/24/outline';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 
 import { useAuth } from '@/hooks/useAuth';
@@ -14,7 +15,6 @@ import TaskModalDetails from '@/components/tasks/TaskModalDetails';
 
 export default function ProjectDetailsView() {
   const { data: user, isLoading: authLoading } = useAuth();
-
   const navigate = useNavigate();
   const params = useParams();
   const projectId = params.projectId!;
@@ -27,38 +27,49 @@ export default function ProjectDetailsView() {
 
   const canEdit = useMemo(() => data?.manager === user?._id, [data, user]);
 
-  if (isLoading && authLoading) return 'Cargando...';
+  if (isLoading || authLoading)
+    return (
+      <div className='flex items-center justify-center min-h-screen'>
+        <div className='animate-spin rounded-full border-4 border-gray-300 border-t-fuchsia-500 h-16 w-16'></div>
+      </div>
+    );
 
   if (isError) return <Navigate to='/404' />;
 
   if (data && user)
     return (
-      <>
-        <h1 className='text-5xl font-black'>{data.projectName}</h1>
-        <p className='text-2xl font-light text-gray-500 mt-5'>{data.description}</p>
+      <div className='p-5'>
+        <h1 className='text-3xl sm:text-5xl font-black text-gray-900'>{data.projectName}</h1>
+        <p className='text-lg sm:text-2xl font-light text-gray-600 mt-3'>{data.description}</p>
 
         {isManager(data.manager, user._id) && (
-          <nav className='my-5 flex gap-3'>
+          <nav className='mt-6 flex flex-col sm:flex-row gap-3'>
             <button
               type='button'
-              className='bg-purple-500 hover:bg-purple-600 px-10 py-3 text-white text-xl font-bold cursor-pointer transition-colors'
+              className='flex items-center gap-2 bg-purple-600 hover:bg-purple-700 px-6 py-3 text-white  font-semibold rounded-lg shadow-md transition-colors'
               onClick={() => navigate(location.pathname + '?newTask=true')}
             >
+              <PlusIcon className='w-6 h-6' />
               Agregar Tarea
             </button>
+
             <Link
-              to={'team'}
-              className='bg-fuchsia-600 hover:bg-fuchsia-700 px-10 py-3 text-white text-xl font-bold cursor-pointer transition-colors'
+              to='team'
+              className='flex items-center gap-2 bg-fuchsia-600 hover:bg-fuchsia-700 px-6 py-3 text-white  font-semibold rounded-lg shadow-md transition-colors'
             >
+              <UsersIcon className='w-6 h-6' />
               Colaboradores
             </Link>
           </nav>
         )}
 
-        <TaskList tasks={data.tasks} canEdit={canEdit} />
+        <div className='mt-6'>
+          <TaskList tasks={data.tasks} canEdit={canEdit} />
+        </div>
+
         <AddTaskModal />
         <EditTaskData />
         <TaskModalDetails />
-      </>
+      </div>
     );
 }

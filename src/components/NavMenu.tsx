@@ -3,7 +3,12 @@ import { Link } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
 
 import { User } from '@/types';
-import { Bars3Icon } from '@heroicons/react/20/solid';
+import {
+  Bars3Icon,
+  UserIcon,
+  FolderIcon,
+  ArrowLeftEndOnRectangleIcon,
+} from '@heroicons/react/24/outline';
 import { Popover, PopoverPanel, PopoverButton, Transition } from '@headlessui/react';
 
 type NavMenuProps = {
@@ -18,9 +23,9 @@ export default function NavMenu({ name }: NavMenuProps) {
   };
 
   return (
-    <Popover className='relative lg:pr-6 xl:pr-10 2xl:pr-0 cursor-pointer'>
-      <PopoverButton className='cursor-pointer inline-flex items-center gap-x-1 text-sm font-semibold leading-6 p-1 rounded-lg bg-purple-400'>
-        <Bars3Icon className='w-8 h-8 text-white ' />
+    <Popover className='relative z-20'>
+      <PopoverButton className='cursor-pointer inline-flex items-center gap-x-2 text-sm font-semibold p-2 rounded-lg bg-purple-600 hover:bg-purple-700 transition-colors duration-300'>
+        <Bars3Icon className='w-8 h-8 text-white' />
       </PopoverButton>
 
       <Transition
@@ -32,20 +37,35 @@ export default function NavMenu({ name }: NavMenuProps) {
         leaveFrom='opacity-100 translate-y-0'
         leaveTo='opacity-0 translate-y-1'
       >
-        <PopoverPanel className='absolute left-1/2 z-10 mt-5 flex w-screen lg:max-w-min -translate-x-1/2 lg:-translate-x-48'>
-          <div className='w-full lg:w-56 shrink rounded-xl bg-white p-4 text-sm font-semibold leading-6 text-gray-900 shadow-lg ring-1 ring-gray-900/5'>
-            <p className='text-center'>Hola: {name}</p>
-            <Link to='/profile' className='block p-2 hover:text-purple-950'>
+        <PopoverPanel className='absolute -left-[5.2rem] md:-left-44 md:right-0 mt-3 w-52 sm:w-56 bg-white shadow-lg rounded-lg ring-1 ring-gray-900/10 overflow-hidden'>
+          <div className='p-4 text-sm font-medium text-gray-900'>
+            <p className='text-center text-gray-700 mb-2'>
+              Hola, <span className='font-semibold'>{name}</span>
+            </p>
+            <hr className='border-gray-200 mb-2' />
+
+            <Link
+              to='/profile'
+              className='flex items-center gap-2 px-4 py-2 rounded-md hover:bg-purple-50 transition'
+            >
+              <UserIcon className='w-5 h-5 text-purple-600' />
               Mi Perfil
             </Link>
-            <Link to='/' className='block p-2 hover:text-purple-950'>
+
+            <Link
+              to='/'
+              className='flex items-center gap-2 px-4 py-2 rounded-md hover:bg-purple-50 transition'
+            >
+              <FolderIcon className='w-5 h-5 text-purple-600' />
               Mis Proyectos
             </Link>
+
             <button
-              className='block p-2 hover:text-purple-950 cursor-pointer'
+              className='flex items-center gap-2 w-full text-left px-4 py-2 rounded-md text-red-600 hover:bg-red-50 transition cursor-pointer'
               type='button'
               onClick={logout}
             >
+              <ArrowLeftEndOnRectangleIcon className='w-5 h-5 text-red-600' />
               Cerrar Sesión
             </button>
           </div>
