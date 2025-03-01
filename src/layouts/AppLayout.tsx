@@ -23,7 +23,7 @@ export default function AppLayout() {
       </div>
     );
 
-  if (isError || !data) {
+  if (isError) {
     return <Navigate to='/auth/login' />;
   }
 
