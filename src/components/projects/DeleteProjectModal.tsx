@@ -63,7 +63,7 @@ export default function DeleteProjectModal() {
     <Transition appear show={show} as={Fragment}>
       <Dialog
         as='div'
-        className='relative z-10'
+        className='relative z-50'
         onClose={() => navigate(location.pathname, { replace: true })}
       >
         <TransitionChild

@@ -51,7 +51,7 @@ export default function EditTaskModal({ data, taskId }: EditTaskModalProps) {
     <Transition appear show={true} as={Fragment}>
       <Dialog
         as='div'
-        className='relative z-10'
+        className='relative z-50'
         onClose={() => navigate(location.pathname, { replace: true })}
       >
         <TransitionChild
@@ -95,7 +95,7 @@ export default function EditTaskModal({ data, taskId }: EditTaskModalProps) {
 
                 <input
                   type='submit'
-                  className='bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-3 text-white font-black text-lg sm:text-xl rounded-md shadow-md cursor-pointer transition-all'
+                  className='bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-3 text-sm md:text-base text-white font-black sm:text-xl rounded-md shadow-md cursor-pointer transition-all uppercase'
                   value='Guardar Tarea'
                 />
               </form>

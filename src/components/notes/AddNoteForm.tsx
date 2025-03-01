@@ -51,14 +51,14 @@ export default function AddNoteForm() {
     <>
       <form onSubmit={handleSubmit(handleAddNote)} className='space-y-3' noValidate>
         <div className='flex flex-col gap-2'>
-          <label className='font-bold' htmlFor='content'>
+          <label className='font-bold text-sm md:text-base' htmlFor='content'>
             Crear Nota
           </label>
           <input
             type='text'
             id='content'
             placeholder='Contenido de la nota'
-            className='w-full p-3 border border-gray-300'
+            className='w-full p-2 sm:p-3 border text-sm md:text-base border-gray-300 rounded-md focus:ring-2 focus:ring-fuchsia-500 focus:outline-none'
             {...register('content', {
               required: 'El contenido de la nota es obligatorio.',
             })}
@@ -67,9 +67,9 @@ export default function AddNoteForm() {
         </div>
 
         <input
-          value='Crear Nota'
+          value='CREAR NOTA'
           type='submit'
-          className='bg-fuchsia-600 hover:bg-fuchsia-700 w-fill p-2 text-white font-black cursor-pointer'
+          className='bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-2 md:p-3 text-sm md:text-base text-white font-black cursor-pointer rounded-md uppercase'
         />
       </form>
     </>

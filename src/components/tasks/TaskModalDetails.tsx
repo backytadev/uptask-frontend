@@ -59,7 +59,7 @@ export default function TaskModalDetails() {
         <Transition appear show={show} as={Fragment}>
           <Dialog
             as='div'
-            className='relative z-10'
+            className='relative z-50'
             onClose={() => navigate(location.pathname, { replace: true })}
           >
             <TransitionChild
@@ -85,48 +85,95 @@ export default function TaskModalDetails() {
                   leaveFrom='opacity-100 scale-100'
                   leaveTo='opacity-0 scale-95'
                 >
-                  <DialogPanel className='w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-16'>
-                    <p className='text-sm text-slate-400'>
+                  <DialogPanel className='w-full max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-4xl transform overflow-hidden rounded-xl bg-white text-left align-middle shadow-xl transition-all p-4 sm:p-6'>
+                    <p className='text-[10px] sm:text-xs md:text-sm text-slate-400'>
                       Agregada el: {formatDate(data.createdAt)}
                     </p>
-                    <p className='text-sm text-slate-400'>
+                    <p className='text-[10px] sm:text-xs md:text-sm text-slate-400'>
                       Última actualización: {formatDate(data.updatedAt)}
                     </p>
 
-                    <DialogTitle as='h3' className='font-black text-4xl text-slate-600 my-5'>
+                    <DialogTitle
+                      as='h3'
+                      className='font-black text-lg sm:text-xl md:text-2xl lg:text-3xl text-slate-700 my-4'
+                    >
                       {data.name}
                     </DialogTitle>
 
-                    <p className='text-lg text-slate-500 mb-2'>Descripción: {data.description}</p>
+                    <p className='text-xs sm:text-sm md:text-base text-slate-600 mb-4'>
+                      <span className='font-semibold'>Descripción:</span> {data.description}
+                    </p>
 
-                    {data.completedBy.length ? (
-                      <>
-                        <p className='font-bold text-2xl text-slate-600 my-5'>
+                    {data.completedBy.length > 0 && (
+                      <div>
+                        <p className='font-bold text-base sm:text-lg md:text-xl text-slate-700 mb-3'>
                           Historial de Cambios
                         </p>
-
-                        <ul className='pl-4 list-decimal'>
+                        <ul className='pl-4 list-disc text-xs sm:text-sm md:text-base space-y-1'>
                           {data.completedBy.map((activityLog) => (
-                            <li key={activityLog._id}>
-                              <span className='font-bold text-slate-600'>
-                                {StatusTranslations[activityLog.status]}
-                              </span>{' '}
-                              por: {activityLog.user.name}
+                            <li
+                              key={activityLog._id}
+                              className={`font-bold ${
+                                activityLog.status === 'completed'
+                                  ? 'text-green-600'
+                                  : activityLog.status === 'inProgress'
+                                    ? 'text-amber-500'
+                                    : activityLog.status === 'pending'
+                                      ? 'text-red-600'
+                                      : activityLog.status === 'onHold'
+                                        ? 'text-blue-600'
+                                        : activityLog.status === 'underReview'
+                                          ? 'text-purple-600'
+                                          : 'text-slate-600'
+                              }`}
+                            >
+                              {StatusTranslations[activityLog.status]}{' '}
+                              <p className='text-slate-600 font-medium text-[10px] sm:text-xs'>
+                                Actualizado por: {activityLog.user.name}
+                              </p>
                             </li>
                           ))}
                         </ul>
-                      </>
-                    ) : null}
+                      </div>
+                    )}
 
-                    <div className='my-5 space-y-3'>
-                      <label className='font-bold'>Estado Actual:</label>
+                    <div className='my-4 space-y-2'>
+                      <label className='font-bold text-sm md:text-base block'>Estado Actual:</label>
                       <select
-                        className='w-full p-3 bg-white border border-gray-300'
+                        className={`w-full p-2 sm:p-3 bg-white border text-sm md:text-base border-gray-300 rounded-md focus:ring-2 focus:outline-none ${
+                          data.status === 'completed'
+                            ? 'focus:ring-green-500'
+                            : data.status === 'inProgress'
+                              ? 'focus:ring-amber-500'
+                              : data.status === 'pending'
+                                ? 'focus:ring-red-500'
+                                : data.status === 'onHold'
+                                  ? 'focus:ring-blue-500'
+                                  : data.status === 'underReview'
+                                    ? 'focus:ring-purple-500'
+                                    : 'focus:ring-gray-400'
+                        }`}
                         defaultValue={data.status}
                         onChange={handleChange}
                       >
                         {Object.entries(StatusTranslations).map(([key, value]) => (
-                          <option key={key} value={key}>
+                          <option
+                            key={key}
+                            value={key}
+                            className={
+                              key === 'completed'
+                                ? 'text-green-600'
+                                : key === 'inProgress'
+                                  ? 'text-amber-600'
+                                  : key === 'pending'
+                                    ? 'text-red-600'
+                                    : key === 'onHold'
+                                      ? 'text-blue-600'
+                                      : key === 'underReview'
+                                        ? 'text-purple-600'
+                                        : 'text-slate-600'
+                            }
+                          >
                             {value}
                           </option>
                         ))}

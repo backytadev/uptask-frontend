@@ -30,7 +30,7 @@ export default function AppLayout() {
   if (data)
     return (
       <div className='flex flex-col min-h-screen text-black'>
-        <header className='bg-slate-900 py-4 shadow-md'>
+        <header className='bg-slate-900 py-4 shadow-md z-50'>
           <div className='max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center'>
             <div className='w-48 sm:w-48 lg:w-64'>
               <Link to='/'>
@@ -41,7 +41,7 @@ export default function AppLayout() {
           </div>
         </header>
 
-        <section className='flex-1 w-full max-w-screen-2xl mx-auto p-4 sm:p-6 lg:p-8'>
+        <section className='flex-1 w-full max-w-screen-2xl mx-auto p-4 sm:p-6 lg:p-8 z-20'>
           <Outlet />
         </section>
 

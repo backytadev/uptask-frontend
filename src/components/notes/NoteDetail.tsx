@@ -40,19 +40,21 @@ export default function NoteDetail({ note }: NoteDetailProps) {
   if (isLoading) return 'Cargando...';
 
   return (
-    <div className='p-3 flex justify-between item-center'>
-      <div>
-        <p>
-          {note.content} por: <span className='font-bold'>{note.createdBy.name}</span>
+    <div className='p-3 sm:p-4 flex items-start justify-between bg-white shadow-md rounded-lg my-4'>
+      <div className='flex flex-col'>
+        <p className='text-sm md:text-base text-slate-700 font-bold'>
+          {note.content}
+          <span className='block text-p md:text-base text-slate-500 mt-1'>
+            Creado por: <span className='font-medium'>{note.createdBy.name}</span>
+          </span>
         </p>
-
-        <p className='text-xs text-slate-500'>{formatDate(note.createdAt)}</p>
+        <p className='text-xs text-slate-400 mt-1'>{formatDate(note.createdAt)}</p>
       </div>
 
       {canDelete && (
         <button
           type='button'
-          className='bg-red-400 hover:bg-red-500 p-2 text-xs text-white font-bold cursor-pointer transition-colors'
+          className='bg-red-500 hover:bg-red-600 px-3 py-1 text-[12px] sm:text-sm text-white font-bold rounded-md transition-all cursor-pointer'
           onClick={() => mutate({ taskId, projectId, noteId: note._id })}
         >
           Eliminar
