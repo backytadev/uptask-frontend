@@ -12,12 +12,18 @@ export default function AppLayout() {
 
   if (isLoading)
     return (
-      <div className='flex items-center justify-center min-h-screen '>
-        <div className='animate-spin rounded-full border-4 border-gray-300 border-t-fuchsia-500 h-16 w-16'></div>
+      <div className='flex flex-col items-center justify-center min-h-screen bg-gray-100'>
+        <div className='relative flex items-center justify-center'>
+          <div className='animate-spin rounded-full border-4 border-gray-300 border-t-fuchsia-500 h-16 w-16'></div>
+          <span className='absolute text-fuchsia-500 font-semibold'>⏳</span>
+        </div>
+        <p className='mt-4 text-lg font-medium text-gray-600 animate-pulse'>
+          Conectando con el servidor...
+        </p>
       </div>
     );
 
-  if (isError) {
+  if (isError || !data) {
     return <Navigate to='/auth/login' />;
   }
 
