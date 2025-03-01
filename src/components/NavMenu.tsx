@@ -4,8 +4,8 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import { User } from '@/types';
 import {
-  Bars3Icon,
   UserIcon,
+  Bars3Icon,
   FolderIcon,
   ArrowLeftEndOnRectangleIcon,
 } from '@heroicons/react/24/outline';
@@ -21,6 +21,7 @@ export default function NavMenu({ name }: NavMenuProps) {
   const logout = () => {
     localStorage.removeItem('AUTH_TOKEN');
     queryClient.invalidateQueries({ queryKey: ['user'] });
+    queryClient.invalidateQueries({ queryKey: ['projects'] });
     navigate('/auth/login');
   };
 
