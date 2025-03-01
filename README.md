@@ -1,50 +1,40 @@
-# React + TypeScript + Vite
+<p align="center">
+  <a href="https://react.dev/" target="blank"><img src="https://cdn.worldvectorlogo.com/logos/react-2.svg" width="200" alt="React Logo" /></a>
+</p>
+<p align="center">The library for web and native user interfaces.</p>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[circleci-image]: https://img.shields.io/circleci/build/github/nodejs/node/master?token=abc123def456
+[circleci-url]: https://circleci.com/gh/nodejs/node
 
-Currently, two official plugins are available:
+# UPTASK-FRONTEND
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+In this project, the administration interface is developed to interact with the API and the backend of the UPTASK app, the following technologies are used:
 
-## Expanding the ESLint configuration
+- React
+- Headlessui
+- Tanstack Query
+- Axios
+- React Toastify
+- React Router Dom
+- React Hook Form
+- Zod
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Installation and Run Locally
 
-- Configure the top-level `parserOptions` property like this:
+Install my-project with npm or pnpm
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+1. Clone the project
+
+2. Install dependencies
+
+```
+npm i or pnpm i
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+3. Clone the `.env.template` and change it to `.env` and configure its environment variables.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+4. Raise the frontend-server dev mode
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```
+npm run dev or pnpm run dev
 ```
