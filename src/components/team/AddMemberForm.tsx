@@ -47,7 +47,7 @@ export default function AddMemberForm() {
             id='email'
             type='email'
             placeholder='E-mail del usuario a agregar'
-            className='w-full p-2 md:p-3 text-sm md:text-base border border-gray-300 rounded-lg px-4 py-3 text-lg focus:ring-2 focus:ring-fuchsia-500 focus:outline-none'
+            className='w-full p-2 md:p-3 text-sm md:text-base border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-fuchsia-500 focus:outline-none'
             {...register('email', {
               required: 'El Email es obligatorio',
               pattern: {
@@ -65,7 +65,7 @@ export default function AddMemberForm() {
 
         <button
           type='submit'
-          className='w-full bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-bold text-lg sm:text-xl py-3 rounded-lg transition-all'
+          className='w-full bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-bold text-lg sm:text-xl py-3 rounded-lg transition-all cursor-pointer'
         >
           Buscar Usuario
         </button>
