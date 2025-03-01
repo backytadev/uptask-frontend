@@ -70,7 +70,7 @@ export default function RegisterView() {
 
         <button
           type='submit'
-          className='bg-fuchsia-600 hover:bg-fuchsia-700 w-full py-2 md:py-4 text-base sm:text-xl rounded-lg text-white font-bold transition duration-300'
+          className='bg-fuchsia-600 hover:bg-fuchsia-700 uppercase w-full p-2 md:p-4 text-white font-black cursor-pointer rounded-lg transition focus:ring-2 focus:ring-fuchsia-400'
         >
           Enviar Código
         </button>

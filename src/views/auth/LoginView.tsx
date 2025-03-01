@@ -82,7 +82,7 @@ export default function LoginView() {
         <input
           type='submit'
           value='Iniciar Sesión'
-          className='bg-fuchsia-600 hover:bg-fuchsia-700 uppercase w-full p-2 md:p-3 text-white font-black  cursor-pointer rounded-lg transition focus:ring-2 focus:ring-fuchsia-400'
+          className='bg-fuchsia-600 hover:bg-fuchsia-700 uppercase w-full p-2 md:p-4 text-white font-black  cursor-pointer rounded-lg transition focus:ring-2 focus:ring-fuchsia-400'
         />
       </form>
 
