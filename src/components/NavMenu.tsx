@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
 
 import { User } from '@/types';
@@ -16,10 +16,12 @@ type NavMenuProps = {
 };
 export default function NavMenu({ name }: NavMenuProps) {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const logout = () => {
     localStorage.removeItem('AUTH_TOKEN');
     queryClient.invalidateQueries({ queryKey: ['user'] });
+    navigate('/auth/login');
   };
 
   return (

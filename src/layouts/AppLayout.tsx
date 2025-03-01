@@ -8,7 +8,7 @@ import Logo from '@/components/Logo';
 import NavMenu from '@/components/NavMenu';
 
 export default function AppLayout() {
-  const { data, isError, isLoading } = useAuth();
+  const { data, isLoading } = useAuth();
 
   if (isLoading)
     return (
@@ -23,7 +23,7 @@ export default function AppLayout() {
       </div>
     );
 
-  if (isError) {
+  if (!data) {
     return <Navigate to='/auth/login' />;
   }
 
