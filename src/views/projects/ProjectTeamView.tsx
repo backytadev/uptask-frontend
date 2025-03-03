@@ -82,11 +82,11 @@ export default function ProjectTeamView() {
 
         <h2 className='text-4xl sm:text-5xl font-black my-10'>Miembros actuales</h2>
         {data.length ? (
-          <ul className='divide-y divide-gray-200 border border-gray-200 mt-5 bg-white shadow-md rounded-lg'>
+          <ul className='space-y-4 mt-10'>
             {data?.map((member) => (
               <li
                 key={member._id}
-                className='relative flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 px-5 py-6'
+                className='relative flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 px-5 py-6 bg-white shadow-md rounded-lg border border-gray-200'
               >
                 <div className='flex w-full items-center justify-between'>
                   <div className='flex items-center gap-4'>
@@ -109,7 +109,7 @@ export default function ProjectTeamView() {
                       leaveFrom='transform opacity-100 scale-100'
                       leaveTo='transform opacity-0 scale-95'
                     >
-                      <MenuItems className='absolute  -right-4 md:right-0 top-12 md:top-10 z-20 w-[12.5rem] bg-white shadow-lg ring-1 ring-gray-300 rounded-md py-2'>
+                      <MenuItems className='absolute -right-4 md:right-0 top-12 md:top-10 z-20 w-[12.5rem] bg-white shadow-lg ring-1 ring-gray-300 rounded-md py-2'>
                         <MenuItem>
                           <button
                             type='button'
