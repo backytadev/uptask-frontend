@@ -85,7 +85,7 @@ export default function TaskModalDetails() {
                   leaveFrom='opacity-100 scale-100'
                   leaveTo='opacity-0 scale-95'
                 >
-                  <DialogPanel className='w-[95%] sm:w-full sm:max-w-xl md:max-w-2xl lg:max-w-4xl transform overflow-hidden rounded-xl bg-white text-left align-middle shadow-xl transition-all p-4 sm:p-6'>
+                  <DialogPanel className='w-[90%] sm:w-full sm:max-w-xl md:max-w-2xl lg:max-w-4xl transform overflow-hidden rounded-xl bg-white text-left align-middle shadow-xl transition-all p-4 sm:p-6'>
                     <p className='text-xs sm:text-xs md:text-sxs text-slate-400 mb-1'>
                       Agregada el: {formatDate(data.createdAt)}
                     </p>
@@ -95,21 +95,21 @@ export default function TaskModalDetails() {
 
                     <DialogTitle
                       as='h3'
-                      className='font-black text-lg sm:text-xl md:text-2xl lg:text-3xl text-slate-700 my-4'
+                      className='font-black text-xl md:text-3xl text-slate-700 my-4'
                     >
                       {data.name}
                     </DialogTitle>
 
-                    <p className='text-xs sm:text-sm md:text-base text-slate-600 mb-4'>
+                    <p className='text-sm sm:text-sm md:text-base text-slate-600 mb-4'>
                       <span className='font-semibold'>Descripción:</span> {data.description}
                     </p>
 
                     {data.completedBy.length > 0 && (
                       <div>
-                        <p className='font-bold text-base sm:text-lg md:text-xl text-slate-700 mb-3'>
+                        <p className='font-bold text-base md:text-lg text-slate-700 mb-3'>
                           Historial de Cambios
                         </p>
-                        <ul className='pl-4 list-disc text-xs sm:text-sm md:text-base space-y-1'>
+                        <ul className='pl-4 list-disc text-sm sm:text-sm md:text-base space-y-1'>
                           {data.completedBy.map((activityLog) => (
                             <li
                               key={activityLog._id}
@@ -128,7 +128,7 @@ export default function TaskModalDetails() {
                               }`}
                             >
                               {StatusTranslations[activityLog.status]}{' '}
-                              <p className='text-slate-600 font-medium text-[10px] sm:text-xs'>
+                              <p className='text-slate-600 font-medium text-[12px] sm:text-xs'>
                                 Actualizado por: {activityLog.user.name}
                               </p>
                             </li>
