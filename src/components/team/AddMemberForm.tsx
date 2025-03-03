@@ -23,17 +23,19 @@ export default function AddMemberForm() {
     formState: { errors },
   } = useForm({ defaultValues: initialValues });
 
-  const mutation = useMutation({
+  const { mutate, isPending, data, error } = useMutation({
     mutationFn: findUserByEmail,
   });
 
+  console.log(isPending);
+
   const handleSearchUser = async (formData: TeamMemberForm) => {
-    mutation.mutate({ projectId, formData });
+    mutate({ projectId, formData });
   };
 
   const resetData = () => {
     reset();
-    mutation.reset();
+    reset();
   };
 
   return (
@@ -65,20 +67,21 @@ export default function AddMemberForm() {
 
         <button
           type='submit'
-          className='w-full bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-bold sm:text-xl p-2 md:py-3 rounded-lg text-base transition-all cursor-pointer'
+          disabled={isPending}
+          className={`w-full font-bold p-2 md:py-3 rounded-lg text-base transition-all uppercase
+    ${isPending ? 'bg-fuchsia-400 cursor-not-allowed opacity-75 animate-pulse text-fuchsia-600' : 'bg-fuchsia-600 hover:bg-fuchsia-700 text-white cursor-pointer'}`}
         >
-          Buscar Usuario
+          {isPending ? 'Buscando...' : 'Buscar Usuario'}
         </button>
       </form>
 
       <div className='mt-3'>
-        {mutation.isPending && <p className='text-center text-lg font-semibold'>Cargando...</p>}
-        {mutation.error && (
+        {error && (
           <p className='text-center text-red-600'>
-            <ErrorMessage>{mutation.error.message}</ErrorMessage>
+            <ErrorMessage>{error.message}</ErrorMessage>
           </p>
         )}
-        {mutation.data && <SearchResult user={mutation.data} reset={resetData} />}
+        {data && <SearchResult user={data} reset={resetData} />}
       </div>
     </>
   );

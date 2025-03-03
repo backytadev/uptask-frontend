@@ -33,8 +33,9 @@ export default function AddTaskModal() {
 
   const queryCliente = useQueryClient();
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: createTask,
+
     onError: (error) => {
       toast.error(error.message);
     },
@@ -96,11 +97,14 @@ export default function AddTaskModal() {
                 >
                   <TaskForm register={register} errors={errors} />
 
-                  <input
+                  <button
                     type='submit'
-                    value='Crear Tarea'
-                    className='bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-2 md:p-3 text-base text-white uppercase font-bold rounded-md shadow-md cursor-pointer transition-all'
-                  />
+                    disabled={isPending}
+                    className={`w-full p-2 md:p-3 text-base font-bold uppercase rounded-lg focus:ring-2 focus:ring-fuchsia-500 transition-all 
+                  ${isPending ? 'bg-fuchsia-400 cursor-not-allowed opacity-75 animate-pulse text-fuchsia-600' : 'bg-fuchsia-600 hover:bg-fuchsia-700 text-white cursor-pointer'}`}
+                  >
+                    {isPending ? 'Creando...' : 'Crear Tarea'}
+                  </button>
                 </form>
               </DialogPanel>
             </TransitionChild>

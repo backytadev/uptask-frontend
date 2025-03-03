@@ -21,7 +21,7 @@ export default function ChangePasswordView() {
     formState: { errors },
   } = useForm({ defaultValues: initialValues });
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: changePassword,
     onError: (error) => {
       toast.error(error.message);
@@ -52,12 +52,12 @@ export default function ChangePasswordView() {
         >
           <div className='space-y-2'>
             <label className='text-sm font-bold uppercase' htmlFor='current_password'>
-              Password Actual
+              Contraseña Actual
             </label>
             <input
               id='current_password'
               type='password'
-              placeholder='Password Actual'
+              placeholder='Contraseña Actual'
               className='w-full mt-1 p-2 md:p-3 text-sm md:text-base border border-gray-300 rounded-lg focus:border-fuchsia-600 focus:ring-1 focus:ring-fuchsia-600 focus:outline-none transition-all'
               {...register('current_password', {
                 required: 'El password actual es obligatorio',
@@ -70,12 +70,12 @@ export default function ChangePasswordView() {
 
           <div className='space-y-2'>
             <label className='text-sm font-bold uppercase' htmlFor='password'>
-              Nuevo Password
+              Nueva Contraseña
             </label>
             <input
               id='password'
               type='password'
-              placeholder='Nuevo Password'
+              placeholder='Nueva Contraseña'
               className='w-full mt-1 p-2 md:p-3 text-sm md:text-base border border-gray-300 rounded-lg focus:border-fuchsia-600 focus:ring-1 focus:ring-fuchsia-600 focus:outline-none transition-all'
               {...register('password', {
                 required: 'El Nuevo Password es obligatorio',
@@ -90,12 +90,12 @@ export default function ChangePasswordView() {
 
           <div className='space-y-2'>
             <label className='text-sm font-bold uppercase' htmlFor='password_confirmation'>
-              Repetir Password
+              Repetir Contraseña
             </label>
             <input
               id='password_confirmation'
               type='password'
-              placeholder='Repetir Password'
+              placeholder='Repetir Contraseña'
               className='w-full mt-1 p-2 md:p-3 text-sm md:text-base border border-gray-300 rounded-lg focus:border-fuchsia-600 focus:ring-1 focus:ring-fuchsia-600 focus:outline-none transition-all'
               {...register('password_confirmation', {
                 required: 'Este campo es obligatorio',
@@ -107,11 +107,14 @@ export default function ChangePasswordView() {
             )}
           </div>
 
-          <input
+          <button
             type='submit'
-            value='Cambiar Contraseña'
-            className='bg-fuchsia-600 w-full p-2 md:py-3 text-white uppercase font-bold text-base rounded-lg hover:bg-fuchsia-700 focus:ring-4 focus:ring-fuchsia-400 transition-all cursor-pointer'
-          />
+            disabled={isPending}
+            className={`w-full font-bold text-base p-2 md:p-3 rounded-lg transition-all uppercase
+              ${isPending ? 'bg-fuchsia-400 cursor-not-allowed opacity-75 animate-pulse text-fuchsia-600' : 'bg-fuchsia-600 hover:bg-fuchsia-700 text-white cursor-pointer'}`}
+          >
+            {isPending ? 'Cambiando...' : 'Cambiar Contraseña'}
+          </button>
         </form>
       </div>
     </>

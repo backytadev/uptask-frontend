@@ -19,7 +19,7 @@ export default function ProfileForm({ data }: ProfileFormProps) {
 
   const queryClient = useQueryClient();
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: updateProfile,
     onError: (error) => {
       toast.error(error.message);
@@ -84,9 +84,11 @@ export default function ProfileForm({ data }: ProfileFormProps) {
 
         <button
           type='submit'
-          className='w-full p-2 md:p-3 text-white uppercase font-bold bg-fuchsia-600 hover:bg-fuchsia-700 transition-colors rounded-md disabled:bg-gray-400'
+          disabled={isPending}
+          className={`w-full font-bold text-base p-2 md:p-3 rounded-lg transition-all uppercase
+              ${isPending ? 'bg-fuchsia-400 cursor-not-allowed opacity-75 animate-pulse text-fuchsia-600' : 'bg-fuchsia-600 hover:bg-fuchsia-700 text-white cursor-pointer'}`}
         >
-          Guardar Cambios
+          {isPending ? 'Guardando...' : 'Guardar Cambios'}
         </button>
       </form>
     </div>

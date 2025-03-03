@@ -1,6 +1,13 @@
 import { toast } from 'react-toastify';
 import { useParams } from 'react-router-dom';
-import { DndContext, DragEndEvent } from '@dnd-kit/core';
+import {
+  DndContext,
+  DragEndEvent,
+  PointerSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { updateStatus } from '@/api/TaskAPI';
@@ -40,6 +47,16 @@ export default function TaskList({ tasks, canEdit }: TaskListProps) {
   const projectId = params.projectId!;
 
   const queryClient = useQueryClient();
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 150,
+        tolerance: 5,
+      },
+    })
+  );
 
   const { mutate } = useMutation({
     mutationFn: updateStatus,
@@ -91,7 +108,7 @@ export default function TaskList({ tasks, canEdit }: TaskListProps) {
       <h2 className='text-3xl sm:text-5xl font-black my-8 text-gray-900'>Tareas</h2>
 
       <div className='flex gap-5 overflow-x-auto 2xl:overflow-visible pb-10 px-4 sm:px-6'>
-        <DndContext onDragEnd={handleDragEnd}>
+        <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
           {Object.entries(groupedTasks).map(([status, tasks]) => (
             <div
               key={status}

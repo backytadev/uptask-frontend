@@ -29,7 +29,7 @@ export default function EditTaskModal({ data, taskId }: EditTaskModalProps) {
     formState: { errors },
   } = useForm<TaskFormData>({ defaultValues: { name: data.name, description: data.description } });
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: updateTaskById,
     onError: (error) => {
       toast.error(error.message);
@@ -93,11 +93,14 @@ export default function EditTaskModal({ data, taskId }: EditTaskModalProps) {
               >
                 <TaskForm register={register} errors={errors} />
 
-                <input
+                <button
                   type='submit'
-                  className='bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-3 text-sm md:text-base text-white font-bold sm:text-xl rounded-md shadow-md cursor-pointer transition-all uppercase'
-                  value='Guardar Tarea'
-                />
+                  disabled={isPending}
+                  className={`w-full font-bold text-base p-2 md:py-3 rounded-lg uppercase transition-all 
+              ${isPending ? 'bg-fuchsia-400 cursor-not-allowed opacity-75 animate-pulse text-fuchsia-600' : 'bg-fuchsia-600 hover:bg-fuchsia-700 text-white cursor-pointer'}`}
+                >
+                  {isPending ? 'Guardando...' : 'Guardar Tarea'}
+                </button>
               </form>
             </DialogPanel>
           </TransitionChild>

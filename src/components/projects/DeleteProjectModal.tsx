@@ -78,53 +78,52 @@ export default function DeleteProjectModal() {
           <div className='fixed inset-0 bg-black/60' />
         </TransitionChild>
 
-        <div className='fixed inset-0 overflow-y-auto'>
-          <div className='flex min-h-full items-center justify-center p-4 text-center'>
-            <Transition.Child
-              as={Fragment}
-              enter='ease-out duration-300'
-              enterFrom='opacity-0 scale-95'
-              enterTo='opacity-100 scale-100'
-              leave='ease-in duration-200'
-              leaveFrom='opacity-100 scale-100'
-              leaveTo='opacity-0 scale-95'
-            >
-              <DialogPanel className='w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-16'>
-                <DialogTitle as='h3' className='font-black text-4xl  my-5'>
-                  Eliminar Proyecto{' '}
-                </DialogTitle>
+        <div className='fixed inset-0 overflow-y-auto flex items-center justify-center p-4'>
+          <TransitionChild
+            as={Fragment}
+            enter='ease-out duration-300'
+            enterFrom='opacity-0 scale-95'
+            enterTo='opacity-100 scale-100'
+            leave='ease-in duration-200'
+            leaveFrom='opacity-100 scale-100'
+            leaveTo='opacity-0 scale-95'
+          >
+            <DialogPanel className='w-full max-w-lg sm:max-w-xl md:max-w-3xl transform overflow-hidden rounded-xl bg-white text-left align-middle shadow-2xl transition-all p-6 sm:p-10'>
+              <DialogTitle as='h3' className='font-black text-2xl md:text-3xl text-center mb-6'>
+                Eliminar Proyecto
+              </DialogTitle>
 
-                <p className='text-xl font-bold'>
-                  Confirma la eliminación del proyecto {''}
-                  <span className='text-fuchsia-600'>colocando tu password</span>
-                </p>
+              <p className='text-lg sm:text-xl font-semibold text-center mb-6'>
+                Confirma la eliminación del proyecto {''}
+                <span className='text-fuchsia-600'>colocando tu password</span>
+              </p>
 
-                <form className='mt-10 space-y-5' onSubmit={handleSubmit(handleForm)} noValidate>
-                  <div className='flex flex-col gap-3'>
-                    <label className='font-normal text-2xl' htmlFor='password'>
-                      Password
-                    </label>
-                    <input
-                      id='password'
-                      type='password'
-                      placeholder='Password Inicio de Sesión'
-                      className='w-full p-3  border-gray-300 border'
-                      {...register('password', {
-                        required: 'El password es obligatorio',
-                      })}
-                    />
-                    {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
-                  </div>
-
+              <form className='space-y-6' onSubmit={handleSubmit(handleForm)} noValidate>
+                <div className='flex flex-col gap-2'>
+                  <label className='font-medium text-base sm:text-lg' htmlFor='password'>
+                    Password
+                  </label>
                   <input
-                    type='submit'
-                    className=' bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-3  text-white font-black  text-xl cursor-pointer'
-                    value='Eliminar Proyecto'
+                    id='password'
+                    type='password'
+                    placeholder='Ingresa tu contraseña'
+                    className='w-full p-2 md:p-3 text-sm md:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-fuchsia-500 focus:outline-none'
+                    {...register('password', { required: 'El password es obligatorio' })}
                   />
-                </form>
-              </DialogPanel>
-            </Transition.Child>
-          </div>
+                  {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
+                </div>
+
+                <button
+                  type='submit'
+                  disabled={deleteProjectMutation.isPending}
+                  className={`w-full font-bold text-base p-2 md:p-3 rounded-lg transition-all uppercase
+              ${deleteProjectMutation.isPending ? 'bg-fuchsia-400 cursor-not-allowed opacity-75 animate-pulse text-fuchsia-600' : 'bg-fuchsia-600 hover:bg-fuchsia-700 text-white cursor-pointer'}`}
+                >
+                  {deleteProjectMutation.isPending ? 'Eliminando...' : '  Eliminar Proyecto'}
+                </button>
+              </form>
+            </DialogPanel>
+          </TransitionChild>
         </div>
       </Dialog>
     </Transition>

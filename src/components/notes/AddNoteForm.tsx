@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { useLocation, useParams } from 'react-router-dom';
@@ -8,6 +9,8 @@ import { createNote } from '@/api/NoteAPI';
 import ErrorMessage from '@/components/ErrorMessage';
 
 export default function AddNoteForm() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const params = useParams();
   const location = useLocation();
 
@@ -31,14 +34,20 @@ export default function AddNoteForm() {
 
   const queryClient = useQueryClient();
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: createNote,
+    onMutate: () => {
+      setIsSubmitting(true);
+    },
     onError: (error) => {
       toast.error(error.message);
     },
     onSuccess: (data) => {
       toast.success(data);
       queryClient.invalidateQueries({ queryKey: ['task', taskId] });
+    },
+    onSettled: () => {
+      setIsSubmitting(false);
     },
   });
 
@@ -66,11 +75,14 @@ export default function AddNoteForm() {
           {errors.content && <ErrorMessage>{errors.content.message}</ErrorMessage>}
         </div>
 
-        <input
-          value='CREAR NOTA'
+        <button
           type='submit'
-          className='bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-2 md:p-3 text-base text-white font-bold cursor-pointer rounded-md uppercase'
-        />
+          disabled={isPending || isSubmitting}
+          className={`w-full p-2 md:p-3 text-base font-bold uppercase rounded-lg transition focus:ring-2 focus:ring-fuchsia-500
+          ${isPending || isSubmitting ? 'bg-fuchsia-400 cursor-not-allowed opacity-75 animate-pulse text-fuchsia-600' : 'bg-fuchsia-600 hover:bg-fuchsia-700 text-white cursor-pointer'}`}
+        >
+          {isPending || isSubmitting ? 'Creando...' : 'Crear Nota'}
+        </button>
       </form>
     </>
   );
