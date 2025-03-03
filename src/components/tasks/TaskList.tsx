@@ -16,6 +16,7 @@ import { Project, TaskProject, TaskStatus } from '@/types';
 
 import TaskCard from '@/components/tasks/TaskCard';
 import DropTask from '@/components/tasks/DropTask';
+import { useEffect } from 'react';
 
 type TaskListProps = {
   tasks: TaskProject[];
@@ -52,8 +53,8 @@ export default function TaskList({ tasks, canEdit }: TaskListProps) {
     useSensor(PointerSensor),
     useSensor(TouchSensor, {
       activationConstraint: {
-        delay: 150,
-        tolerance: 5,
+        delay: 200,
+        tolerance: 10,
       },
     })
   );
@@ -70,22 +71,34 @@ export default function TaskList({ tasks, canEdit }: TaskListProps) {
   });
 
   const groupedTasks = tasks.reduce((acc, task) => {
-    let currentGroup = acc[task.status] ? [...acc[task.status]] : [];
-    currentGroup = [...currentGroup, task];
-    return { ...acc, [task.status]: currentGroup };
+    let currentGroup = acc[task.status] ? [...acc[task.status]] : []; // Validations status
+    currentGroup = [...currentGroup, task]; // Assign current + new task
+    return { ...acc, [task.status]: currentGroup }; // [{id: 1, status: "pending"}, {}]
   }, initialStatusGroups);
 
+  // When dragging starts, disable scrolling by setting body overflow to "hidden".
+  const handleDragStart = () => {
+    document.body.style.overflow = 'hidden';
+  };
+
   const handleDragEnd = (e: DragEndEvent) => {
+    // Re-enable scrolling when the drag ends.
+    document.body.style.overflow = 'auto';
+
     const { over, active } = e;
 
+    // If the dragged element is dropped over a valid target
     if (over && over.id) {
       const taskId = active.id.toString();
       const status = over.id as TaskStatus;
 
+      // Update the task's status in the database
       mutate({ projectId, taskId, status });
 
+      // Optimistically update the UI before the database response
       queryClient.setQueryData(['project', projectId], (prevData: Project) => {
         const updatedTasks = prevData.tasks.map((task) => {
+          // Update the status of the dragged task
           if (task._id === taskId) {
             return {
               ...task,
@@ -103,12 +116,30 @@ export default function TaskList({ tasks, canEdit }: TaskListProps) {
     }
   };
 
+  // Prevent scrolling when dragging on mobile devices
+  useEffect(() => {
+    const handleTouchMove = (e: TouchEvent) => {
+      // If body overflow is "hidden", block scrolling
+      if (document.body.style.overflow === 'hidden') {
+        e.preventDefault();
+      }
+    };
+
+    // Add an event listener for touchmove to prevent scrolling during drag
+    document.addEventListener('touchmove', handleTouchMove, { passive: false });
+
+    return () => {
+      // Clean up: Remove the event listener when the component unmounts
+      document.removeEventListener('touchmove', handleTouchMove);
+    };
+  }, []);
+
   return (
     <>
       <h2 className='text-3xl sm:text-5xl font-black my-8 text-gray-900'>Tareas</h2>
 
       <div className='flex gap-5 overflow-x-auto 2xl:overflow-visible pb-10 px-4 sm:px-6'>
-        <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+        <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
           {Object.entries(groupedTasks).map(([status, tasks]) => (
             <div
               key={status}

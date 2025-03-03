@@ -23,7 +23,7 @@ export default function CreateProjectView() {
     formState: { errors },
   } = useForm({ defaultValues: initialValues });
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: createProject,
     onError: (error) => {
       toast.error(error.message);
@@ -60,11 +60,14 @@ export default function CreateProjectView() {
       >
         <ProjectForm register={register} errors={errors} />
 
-        <input
+        <button
           type='submit'
-          value='Crear Proyecto'
-          className='bg-fuchsia-600 hover:bg-fuchsia-700 w-full py-3 sm:py-4 text-white uppercase font-bold rounded-lg cursor-pointer transition-colors mt-2'
-        />
+          disabled={isPending}
+          className={`w-full font-bold p-2 md:py-3 rounded-lg text-base transition-all uppercase
+          ${isPending ? 'bg-fuchsia-400 cursor-not-allowed opacity-75 animate-pulse text-fuchsia-600' : 'bg-fuchsia-600 hover:bg-fuchsia-700 text-white cursor-pointer'}`}
+        >
+          {isPending ? 'Creando...' : 'Crear Proyecto'}
+        </button>
       </form>
     </div>
   );

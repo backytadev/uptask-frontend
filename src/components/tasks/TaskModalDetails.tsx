@@ -85,7 +85,7 @@ export default function TaskModalDetails() {
                   leaveFrom='opacity-100 scale-100'
                   leaveTo='opacity-0 scale-95'
                 >
-                  <DialogPanel className='w-full sm:max-w-lg md:max-w-2xl lg:max-w-4xl transform overflow-hidden rounded-xl bg-white text-left align-middle shadow-xl transition-all p-4 sm:p-6'>
+                  <DialogPanel className='w-[95%] sm:w-full sm:max-w-xl md:max-w-2xl lg:max-w-4xl transform overflow-hidden rounded-xl bg-white text-left align-middle shadow-xl transition-all p-4 sm:p-6'>
                     <p className='text-xs sm:text-xs md:text-sxs text-slate-400 mb-1'>
                       Agregada el: {formatDate(data.createdAt)}
                     </p>
