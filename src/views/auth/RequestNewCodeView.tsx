@@ -70,7 +70,7 @@ export default function RegisterView() {
 
         <button
           type='submit'
-          className='bg-fuchsia-600 hover:bg-fuchsia-700 uppercase w-full p-2 md:p-4 text-white font-black cursor-pointer rounded-lg transition focus:ring-2 focus:ring-fuchsia-400'
+          className='bg-fuchsia-600 hover:bg-fuchsia-700 uppercase w-full p-2 md:p-3 text-white font-bold cursor-pointer rounded-lg transition focus:ring-2 focus:ring-fuchsia-400 text-base'
         >
           Enviar Código
         </button>

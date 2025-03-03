@@ -49,7 +49,7 @@ export default function DashboardView() {
         <nav className='my-5 flex justify-center lg:justify-start'>
           <Link
             to='/projects/create'
-            className='bg-purple-500 hover:bg-purple-600 px-6 sm:px-10 py-3 text-white text-lg sm:text-xl font-bold rounded-lg transition-colors'
+            className='bg-purple-500 hover:bg-purple-600 px-6 sm:px-10 p-2 md:py-3 text-white text-lg sm:text-xl font-bold rounded-lg transition-colors'
           >
             Nuevo Proyecto
           </Link>

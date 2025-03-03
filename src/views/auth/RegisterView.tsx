@@ -133,7 +133,7 @@ export default function RegisterView() {
           <input
             type='submit'
             value='Registrarme'
-            className='bg-fuchsia-600 w-full py-2 md:py-4 text-white uppercase font-bold rounded-lg hover:bg-fuchsia-700 focus:ring-2 focus:ring-fuchsia-400 transition-all cursor-pointer'
+            className='bg-fuchsia-600 w-full py-2 md:py-3 text-base text-white uppercase font-bold rounded-lg hover:bg-fuchsia-700 focus:ring-2 focus:ring-fuchsia-400 transition-all cursor-pointer'
           />
         </form>
 

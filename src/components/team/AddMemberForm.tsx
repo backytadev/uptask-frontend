@@ -65,7 +65,7 @@ export default function AddMemberForm() {
 
         <button
           type='submit'
-          className='w-full bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-bold text-lg sm:text-xl py-3 rounded-lg transition-all cursor-pointer'
+          className='w-full bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-bold sm:text-xl p-2 md:py-3 rounded-lg text-base transition-all cursor-pointer'
         >
           Buscar Usuario
         </button>

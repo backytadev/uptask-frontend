@@ -38,7 +38,7 @@ export default function ProfileForm({ data }: ProfileFormProps) {
     <div className='mx-auto max-w-lg px-5 sm:px-0'>
       <h1 className='text-4xl font-black text-center sm:text-5xl'>Mi Perfil</h1>
       <p className='text-lg sm:text-xl font-light text-gray-500 mt-4 text-center'>
-        Aquí puedes actualizar tu información.
+        Aquí puedes actualizar tu información
       </p>
 
       <form
@@ -54,7 +54,7 @@ export default function ProfileForm({ data }: ProfileFormProps) {
             id='name'
             type='text'
             placeholder='Tu Nombre'
-            className='w-full mt-1 p-2 md:p-3  border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-fuchsia-500'
+            className='w-full mt-1 p-2 md:p-3  text-sm md:text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-fuchsia-500'
             {...register('name', { required: 'Nombre de usuario es requerido.' })}
             aria-invalid={!!errors.name}
           />
@@ -69,7 +69,7 @@ export default function ProfileForm({ data }: ProfileFormProps) {
             id='email'
             type='email'
             placeholder='Tu Email'
-            className='w-full mt-1 p-2 md:p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-fuchsia-500'
+            className='w-full mt-1 p-2 md:p-3 border text-sm md:text-base border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-fuchsia-500'
             {...register('email', {
               required: 'El e-mail es obligatorio',
               pattern: {
@@ -84,7 +84,7 @@ export default function ProfileForm({ data }: ProfileFormProps) {
 
         <button
           type='submit'
-          className='w-full p-3 text-white uppercase font-bold  bg-fuchsia-600 hover:bg-fuchsia-700 transition-colors rounded-md disabled:bg-gray-400'
+          className='w-full p-2 md:p-3 text-white uppercase font-bold bg-fuchsia-600 hover:bg-fuchsia-700 transition-colors rounded-md disabled:bg-gray-400'
         >
           Guardar Cambios
         </button>

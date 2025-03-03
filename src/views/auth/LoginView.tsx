@@ -7,8 +7,10 @@ import { loginUser } from '@/api/AuthAPI';
 import { UserLoginForm } from '@/types/index';
 
 import ErrorMessage from '@/components/ErrorMessage';
+import { useState } from 'react';
 
 export default function LoginView() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const initialValues: UserLoginForm = {
     email: '',
     password: '',
@@ -23,13 +25,21 @@ export default function LoginView() {
 
   const { mutate } = useMutation({
     mutationFn: loginUser,
+    onMutate: () => {
+      setIsSubmitting(true);
+    },
     onError: (error) => {
       toast.error(error.message);
     },
     onSuccess: () => {
       navigate('/');
     },
+    onSettled: () => {
+      setIsSubmitting(false);
+    },
   });
+
+  console.log(isSubmitting);
 
   const handleLogin = (formData: UserLoginForm) => {
     mutate(formData);
@@ -79,11 +89,14 @@ export default function LoginView() {
           {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
         </div>
 
-        <input
+        <button
           type='submit'
-          value='Iniciar Sesión'
-          className='bg-fuchsia-600 hover:bg-fuchsia-700 uppercase w-full p-2 md:p-4 text-white font-black  cursor-pointer rounded-lg transition focus:ring-2 focus:ring-fuchsia-400'
-        />
+          disabled={isSubmitting}
+          className={`w-full p-2 md:p-3 text-base font-bold uppercase rounded-lg transition focus:ring-2 focus:ring-fuchsia-500 
+          ${isSubmitting ? 'bg-fuchsia-400 cursor-not-allowed opacity-75 animate-pulse text-fuchsia-600' : 'bg-fuchsia-600 hover:bg-fuchsia-700 text-white cursor-pointer'}`}
+        >
+          {isSubmitting ? 'Conectando...' : 'Iniciar Sesión'}
+        </button>
       </form>
 
       <nav className='mt-6 flex flex-col items-center space-y-3 text-sm md:text-base'>

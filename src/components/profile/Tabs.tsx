@@ -3,7 +3,7 @@ import { FingerPrintIcon, UserIcon } from '@heroicons/react/20/solid';
 
 const tabs = [
   { name: 'Mi Cuenta', href: '/profile', icon: UserIcon },
-  { name: 'Cambiar Password', href: '/profile/password', icon: FingerPrintIcon },
+  { name: 'Cambiar Contraseña', href: '/profile/password', icon: FingerPrintIcon },
 ];
 
 function classNames(...classes: string[]) {

@@ -36,10 +36,12 @@ export default function SearchResult({ user, reset }: SearchResultProps) {
 
   return (
     <>
-      <p className='mt-6 text-center text-lg font-semibold text-gray-700'>Resultado:</p>
+      <p className='mt-6 text-center text-base md:text-lg font-semibold text-gray-700'>
+        Resultado:
+      </p>
 
       <div className='flex flex-col sm:flex-row justify-between items-center bg-gray-100 p-4 rounded-lg shadow-sm mt-4'>
-        <p className='text-lg font-semibold text-gray-800'>{user.name}</p>
+        <p className='text-base md:text-lg font-semibold text-gray-800'>{user.name}</p>
 
         <button
           className='mt-3 sm:mt-0 bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-bold transition-all shadow-sm cursor-pointer'

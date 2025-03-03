@@ -17,7 +17,15 @@ export default function AuthLayout() {
         </div>
       </div>
 
-      <ToastContainer pauseOnHover={false} pauseOnFocusLoss={false} />
+      <ToastContainer
+        autoClose={2000}
+        pauseOnHover={false}
+        pauseOnFocusLoss={false}
+        closeOnClick
+        draggable
+        draggableDirection='x'
+        draggablePercent={30}
+      />
     </>
   );
 }

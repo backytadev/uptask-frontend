@@ -61,7 +61,15 @@ export default function AppLayout() {
           </div>
         </footer>
 
-        <ToastContainer pauseOnHover={false} pauseOnFocusLoss={false} />
+        <ToastContainer
+          autoClose={2000}
+          pauseOnHover={false}
+          pauseOnFocusLoss={false}
+          closeOnClick
+          draggable
+          draggableDirection='x'
+          draggablePercent={30}
+        />
       </div>
     );
 }

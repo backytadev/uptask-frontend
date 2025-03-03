@@ -40,9 +40,9 @@ export default function ChangePasswordView() {
   return (
     <>
       <div className='mx-auto max-w-lg px-4 sm:px-0'>
-        <h1 className='text-4xl font-black text-center sm:text-5xl'>Cambiar Password</h1>
+        <h1 className='text-4xl font-black text-center sm:text-5xl'>Cambiar Contraseña</h1>
         <p className='text-lg sm:text-xl font-light text-gray-500 mt-4 text-center'>
-          Utiliza este formulario para cambiar tu password
+          Utiliza este formulario para cambiar tu contraseña
         </p>
 
         <form
@@ -58,7 +58,7 @@ export default function ChangePasswordView() {
               id='current_password'
               type='password'
               placeholder='Password Actual'
-              className='w-full mt-1 p-2 md:p-3 border border-gray-300 rounded-lg focus:border-fuchsia-600 focus:ring-1 focus:ring-fuchsia-600 focus:outline-none transition-all'
+              className='w-full mt-1 p-2 md:p-3 text-sm md:text-base border border-gray-300 rounded-lg focus:border-fuchsia-600 focus:ring-1 focus:ring-fuchsia-600 focus:outline-none transition-all'
               {...register('current_password', {
                 required: 'El password actual es obligatorio',
               })}
@@ -76,7 +76,7 @@ export default function ChangePasswordView() {
               id='password'
               type='password'
               placeholder='Nuevo Password'
-              className='w-full mt-1 p-2 md:p-3  border border-gray-300 rounded-lg focus:border-fuchsia-600 focus:ring-1 focus:ring-fuchsia-600 focus:outline-none transition-all'
+              className='w-full mt-1 p-2 md:p-3 text-sm md:text-base border border-gray-300 rounded-lg focus:border-fuchsia-600 focus:ring-1 focus:ring-fuchsia-600 focus:outline-none transition-all'
               {...register('password', {
                 required: 'El Nuevo Password es obligatorio',
                 minLength: {
@@ -96,7 +96,7 @@ export default function ChangePasswordView() {
               id='password_confirmation'
               type='password'
               placeholder='Repetir Password'
-              className='w-full mt-1 p-2 md:p-3 border border-gray-300 rounded-lg focus:border-fuchsia-600 focus:ring-1 focus:ring-fuchsia-600 focus:outline-none transition-all'
+              className='w-full mt-1 p-2 md:p-3 text-sm md:text-base border border-gray-300 rounded-lg focus:border-fuchsia-600 focus:ring-1 focus:ring-fuchsia-600 focus:outline-none transition-all'
               {...register('password_confirmation', {
                 required: 'Este campo es obligatorio',
                 validate: (value) => value === password || 'Los Passwords no son iguales',
@@ -109,8 +109,8 @@ export default function ChangePasswordView() {
 
           <input
             type='submit'
-            value='Cambiar Password'
-            className='bg-fuchsia-600 w-full py-4 text-white uppercase font-bold  rounded-lg hover:bg-fuchsia-700 focus:ring-4 focus:ring-fuchsia-400 transition-all cursor-pointer'
+            value='Cambiar Contraseña'
+            className='bg-fuchsia-600 w-full p-2 md:py-3 text-white uppercase font-bold text-base rounded-lg hover:bg-fuchsia-700 focus:ring-4 focus:ring-fuchsia-400 transition-all cursor-pointer'
           />
         </form>
       </div>

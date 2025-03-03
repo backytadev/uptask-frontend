@@ -99,7 +99,7 @@ export default function AddTaskModal() {
                   <input
                     type='submit'
                     value='Crear Tarea'
-                    className='bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-3 text-white uppercase font-bold rounded-md shadow-md cursor-pointer transition-all'
+                    className='bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-2 md:p-3 text-base text-white uppercase font-bold rounded-md shadow-md cursor-pointer transition-all'
                   />
                 </form>
               </DialogPanel>
