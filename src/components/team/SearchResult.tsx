@@ -17,7 +17,7 @@ export default function SearchResult({ user, reset }: SearchResultProps) {
 
   const queryClient = useQueryClient();
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: addUserToProject,
     onError: (error) => {
       toast.error(error.message);
@@ -44,10 +44,13 @@ export default function SearchResult({ user, reset }: SearchResultProps) {
         <p className='text-base md:text-lg font-semibold text-gray-800'>{user.name}</p>
 
         <button
-          className='mt-3 sm:mt-0 bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-bold transition-all shadow-sm cursor-pointer'
+          type='submit'
+          disabled={isPending}
           onClick={handleAddUserToProject}
+          className={`font-bold p-2 px-4 rounded-lg text-base transition-all
+    ${isPending ? 'bg-purple-400 cursor-not-allowed opacity-75 animate-pulse text-purple-600' : 'bg-purple-600 hover:bg-purple-700 text-white cursor-pointer'}`}
         >
-          Agregar al Proyecto
+          {isPending ? 'Agregando...' : '  Agregar al Proyecto'}
         </button>
       </div>
     </>
