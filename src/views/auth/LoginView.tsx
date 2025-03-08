@@ -1,16 +1,20 @@
+import { useState } from 'react';
+
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { Link, useNavigate } from 'react-router-dom';
+import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid';
 
 import { loginUser } from '@/api/AuthAPI';
 import { UserLoginForm } from '@/types/index';
 
 import ErrorMessage from '@/components/ErrorMessage';
-import { useState } from 'react';
 
 export default function LoginView() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
   const initialValues: UserLoginForm = {
     email: '',
     password: '',
@@ -113,6 +117,43 @@ export default function LoginView() {
           ¿Olvidaste tu contraseña? Restablecer.
         </Link>
       </nav>
+
+      <div className='text-white mt-8 p-4 bg-gray-800 rounded-lg shadow-md'>
+        <button
+          className='w-full flex justify-between items-center text-lg font-semibold cursor-pointer text-white bg-gray-900 p-3 rounded-md hover:bg-gray-700 transition'
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          📌 Credenciales de Prueba
+          {isOpen ? (
+            <ChevronUpIcon className='w-5 h-5 text-fuchsia-400 transition-transform duration-300' />
+          ) : (
+            <ChevronDownIcon className='w-5 h-5 text-fuchsia-400 transition-transform duration-300' />
+          )}
+        </button>
+
+        <div
+          className={`transition-all duration-300 overflow-hidden ${
+            isOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
+          }`}
+        >
+          <div className='mt-3 space-y-3'>
+            {[
+              { email: 'jhon@uptask.com', password: 'Abcd12345%' },
+              { email: 'maria@uptask.com', password: 'Abcd12345#' },
+              { email: 'mathias@uptask.com', password: 'Abcd12345$' },
+            ].map((cred, index) => (
+              <div key={index} className='p-3 bg-gray-900 rounded-md text-center'>
+                <p className='font-medium'>
+                  ✉️ <span className='text-fuchsia-400'>Usuario:</span> {cred.email}
+                </p>
+                <p className='font-medium'>
+                  🔑 <span className='text-fuchsia-400'>Contraseña:</span> {cred.password}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </>
   );
 }
