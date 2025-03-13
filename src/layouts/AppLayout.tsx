@@ -17,8 +17,8 @@ export default function AppLayout() {
           <div className='animate-spin rounded-full border-4 border-gray-300 border-t-fuchsia-500 h-16 w-16'></div>
           <span className='absolute text-fuchsia-500 font-semibold'>⏳</span>
         </div>
-        <p className='mt-4 text-lg font-medium text-gray-600 animate-pulse'>
-          Conectando con el servidor...
+        <p className='mt-4 text-lg font-medium text-gray-600 animate-pulse text-center'>
+          Conectando con el servidor de Render, por favor espera unos segundos...
         </p>
       </div>
     );
