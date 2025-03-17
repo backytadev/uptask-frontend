@@ -56,6 +56,10 @@ export default function LoginView() {
         Comienza a planear tus proyectos{' '}
         <span className='text-fuchsia-500 font-bold'>iniciando sesión en este formulario</span>
       </p>
+      <p className='text-amber-500 font-medium italic text-center mt-2'>
+        NOTA: El servidor de Render, demora en conectar de 30 a 40 seg, por favor espera, muchas
+        gracias. 🙌🏻😃
+      </p>
 
       <form
         onSubmit={handleSubmit(handleLogin)}
